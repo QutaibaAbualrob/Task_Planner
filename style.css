@@ -1,0 +1,27 @@
+
+
+
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
+
+
+*
+{
+    padding: 0px;
+    margin: 0px;
+
+    height: 100vh;
+}
+
+body
+{
+    font-family: "Montserrat", serif;
+
+}
+
+#header
+{
+    color: red;
+    text-align: center;
+    font-size: 3em;
+
+}
