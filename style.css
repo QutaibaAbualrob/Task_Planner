@@ -8,20 +8,204 @@
 {
     padding: 0px;
     margin: 0px;
-
-    height: 100vh;
+    
 }
 
 body
 {
+
+   
+    height: 100vh;
     font-family: "Montserrat", serif;
+    
+}   
 
-}
 
-#header
+
+.container
 {
-    color: red;
+    display: 80%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+
+    margin: 2em 0px;
+    gap: 3em;
+}
+
+.container h1
+{
     text-align: center;
-    font-size: 3em;
+}
+
+
+
+.inputContainer
+{
+    
+    width: 80%;
+
+    margin-left: auto;
+    margin-right: auto;
+
+    padding: 1em 2em;
+
+
+    border: 2px solid lightgray;
+    border-radius: 0.2em;
 
 }
+
+.inputContainerContent
+{
+    width: 100%;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+ 
+    
+}
+
+.inputContainerContent div
+{
+    width: 100%;
+
+    display: flex;
+   
+}
+
+.inputIcon
+{
+    display: inline;
+    width: 1em;
+
+    padding: 0.5em;
+    background-color: #0a96ba;
+}
+
+.inputContainerContent input
+{
+    width: 100%;
+    
+    font-size: 1em;
+
+
+
+    border: 1px solid #0a96ba;
+    outline: none;
+
+    padding: 0.5em 0 0.5em 1em;
+
+    background-color: white;
+}
+
+.inputContainerContent button
+{
+    width: 100%;
+    padding: 0.5em 0px 0.5em 0px;
+
+    color: white;
+
+    background-color: #0a96ba;
+    border: none;
+    border-radius: 2px;
+}
+
+
+
+
+
+.listContainer
+{
+
+    width: 83.5%;
+    
+    display: flex;
+    flex-direction: column;
+    gap: 1.5em;
+
+    margin-left: auto;
+    margin-right: auto;
+
+   
+    
+    border-radius: 0.2em;
+
+    
+}
+
+.tabsContainer
+{
+    width: 100%;
+    display: flex;
+    
+    gap: 1em;
+}
+
+.tabsContainer button
+{
+
+    width: 100%;
+    padding: 0.5em 0px 0.5em 0px;
+
+    color: white;
+
+    background-color: #0a96ba;
+    border: none;
+    border-radius: 2px;
+}
+
+
+.scrollContainer
+{
+    width: 100%;
+}
+
+.task
+{
+
+   
+    display: flex;
+    justify-content: space-between;
+   
+    padding: 0.5em;
+    border: 2px solid lightgray;
+}
+
+.icons
+{
+    display: flex;
+    gap: 0.5em;
+   
+}
+.icons img
+{
+    width: 1em;
+    gap: 0.5em;
+}
+
+
+
+.deleteContainer
+{
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    gap: 1em;
+}
+
+.deleteContainer button
+{
+    width: 100%;
+    padding: 0.5em 0px 0.5em 0px;
+
+    color: white;
+
+    background-color: #e94242;
+    border: none;
+    border-radius: 2px;
+}
+
