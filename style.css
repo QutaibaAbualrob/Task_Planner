@@ -8,20 +8,158 @@
 {
     padding: 0px;
     margin: 0px;
-
-    height: 100vh;
+    
 }
 
 body
 {
+
+   
+    height: 100vh;
     font-family: "Montserrat", serif;
+    
+}   
+
+
+
+.container
+{
+    display: 80%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+
+    gap: 3em;
+}
+
+.container h1
+{
+    text-align: center;
+}
+
+
+
+.inputContainer
+{
+    
+    width: 80%;
+
+    margin-left: auto;
+    margin-right: auto;
+
+    padding: 1em 2em;
+
+
+    border: 2px solid lightgray;
+    border-radius: 0.2em;
 
 }
 
-#header
+.inputContainerContent
 {
-    color: red;
-    text-align: center;
-    font-size: 3em;
+    width: 100%;
 
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+ 
+    
+}
+
+.inputContainerContent input
+{
+    width: 100%;
+    padding: 0.5em 0px 0.5em 0px;
+
+
+    background-color: white;
+
+    border: 1px solid #0a96ba;
+ 
+}
+
+.inputContainerContent button
+{
+    width: 100%;
+    padding: 0.5em 0px 0.5em 0px;
+
+    color: white;
+
+    background-color: #0a96ba;
+    border: none;
+    border-radius: 2px;
+}
+
+
+
+
+
+.listContainer
+{
+    width: 83.5%;
+
+    margin-left: auto;
+    margin-right: auto;
+
+   
+    
+    border-radius: 0.2em;
+}
+
+.tabsContainer
+{
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    gap: 1em;
+}
+
+.tabsContainer button
+{
+
+    width: 100%;
+    padding: 0.5em 0px 0.5em 0px;
+
+    color: white;
+
+    background-color: #0a96ba;
+    border: none;
+    border-radius: 2px;
+}
+
+
+.scrollContainer
+{
+    border: 5px solid purple;
+}
+
+.scrollContainer h3
+{
+    text-align: center;
+}
+
+
+
+
+
+.deleteContainer
+{
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    gap: 1em;
+}
+
+.deleteContainer button
+{
+    width: 100%;
+    padding: 0.5em 0px 0.5em 0px;
+
+    color: white;
+
+    background-color: #e94242;
+    border: none;
+    border-radius: 2px;
 }
