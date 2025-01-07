@@ -21,6 +21,23 @@ body
 }   
 
 
+::-webkit-scrollbar
+{
+    width: 10px;
+}
+
+::-webkit-scrollbar-track
+{
+    box-shadow: inset 0px 0px 15px gray;
+    
+}
+
+::-webkit-scrollbar-thumb {
+    background: #0a96ba;
+    
+  }
+
+
 
 .container
 {
