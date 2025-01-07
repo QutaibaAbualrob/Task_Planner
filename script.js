@@ -11,6 +11,8 @@ let doneButton = document.getElementById("done");
 let todoButton = document.getElementById("todo");
 
 
+//
+let noTasksHeader = document.getElementById("noTasksHeader");
 //Task HTML COLLECTION like an array
 let taskArr = document.getElementsByClassName("task");
 
@@ -18,6 +20,10 @@ let taskArr = document.getElementsByClassName("task");
 //Red button Click 
 let deleteDoneButton = document.getElementById("deleteDone")
 let deleteAllButton = document.getElementById("deleteAll")
+
+
+
+
 
 
 allButton.onclick = ()=>
@@ -86,16 +92,28 @@ deleteDoneButton.onclick = ()=>
 {
     if(taskArr.length >= 1)
     {
-        for(let task of taskArr)
-        {
+
+        Array.from(taskArr).forEach(task =>{
             if(task.id[1] === 't' )
             {
                 task.remove();
             }
-        }
+
+            if(taskArr.length <= 0)
+            {
+                noTasksHeader.style.display = "block";
+            }
+
+        })
+            
+        
     }
+    
+
+    
 
 };
+
 
 deleteAllButton.onclick = ()=>
 {
@@ -104,14 +122,24 @@ deleteAllButton.onclick = ()=>
         Array.from(taskArr).forEach(task =>{
             task.remove();
         })
+
+
+        if(taskArr.length <= 0)
+        {
+            noTasksHeader.style.display = "block";
+        }
     }
 
-    taskArr = document.getElementsByClassName("task");
+   
+        
+    
 };
 
 
-
-
+if(taskArr.length <= 0)
+{
+    noTasksHeader.style.display = "block";
+}
 
 
 

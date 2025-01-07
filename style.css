@@ -177,6 +177,12 @@ body
     
 }
 
+#noTasksHeader
+{
+    text-align: center;
+    display: none;
+}
+
 .tabsContainer
 {
     width: 100%;
