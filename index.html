@@ -7,8 +7,7 @@
 
     <link rel="icon" href="./sourceImages/icons/book-solid_icon.svg" type="image/x-icon">
     <link rel="stylesheet" href="./style.css">
-    <script src="./script.js"></script>
-
+    
 </head>
 
 <body>
@@ -31,15 +30,16 @@
         <h1>To do list</h1>
         <div class="listContainer">
             <div class="tabsContainer">
-                <button>All</button>
-                <button>Done</button>
-                <button>ToDo</button>
+                <button class="tabButton" id="all">All</button>
+                <button class="tabButton" id="done">Done</button>
+                <button class="tabButton" id="todo">ToDo</button>
             </div>
 
             <div class="scrollContainer">
-                <div class="task" id="9999">
+                
+                <div class="task" id="1f">
                     
-                    <p>Contadasdasdadasdasdsadasdadadsadsent</p>
+                    <p>Task 1</p>
 
                     <div class="icons">
                         <input type="checkbox">
@@ -47,11 +47,38 @@
                         <img src="./sourceImages/icons/trash-solid.svg" alt="deleteIcon">
                     </div>
                 </div>
+
+                <div class="task" id="2t">
+                    
+                    <p>Task 2</p>
+
+                    <div class="icons">
+                        <input type="checkbox">
+                        <img src="./sourceImages/icons/pencil-solid.svg" alt="pencilIcon">
+                        <img src="./sourceImages/icons/trash-solid.svg" alt="deleteIcon">
+                    </div>
+                </div>
+                
+                <div class="task" id="3f">
+                    
+                    <p>Task 3</p>
+
+                    <div class="icons">
+                        <input type="checkbox">
+                        <img src="./sourceImages/icons/pencil-solid.svg" alt="pencilIcon">
+                        <img src="./sourceImages/icons/trash-solid.svg" alt="deleteIcon">
+                    </div>
+                </div>
+
+
+                
+                
+                
             </div>
 
             <div class="deleteContainer">
-                <button>Delete Done Tasks</button>
-                <button>Delete All Tasks</button>
+                <button class="deleteButton" id="deleteDone">Delete Done Tasks</button>
+                <button class="deleteButton"id="deleteAll">Delete All Tasks</button>
             </div>
         </div>
     </section>
@@ -60,7 +87,7 @@
 
 
 
-
+    <script src="./script.js"></script>
 </body>
 
 </html>
