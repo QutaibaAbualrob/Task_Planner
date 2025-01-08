@@ -1,0 +1,39 @@
+
+
+
+
+
+1- Add function for adding new task. ✔✔✔✔
+
+
+2- Add funciton to delete the task from the bin icon. 
+
+3- Add funciton to edit the task from the pen icon as a form of an ALERT that covers the screen.
+
+4- Add function to mark a task as complete from the checkbox.
+
+5- Add a screen pop up as ALERT like pop ups that asks the user if they want to delete tasks.
+
+6- Add a function to make the delete buttons to be pale when theres no DONE TASKS or THERES NO TASKS.
+
+7- Add the ability to store user progress in the local storage (cookies).
+
+
+8- Fix no tasks header implementation to be more maintainable (Make a function to be called to check).
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
