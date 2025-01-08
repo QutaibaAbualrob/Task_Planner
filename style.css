@@ -141,6 +141,12 @@ body
     background-color: white;
 }
 
+#inputNote
+{
+    display: none;
+    color: red;
+}
+
 .inputContainerContent button
 {
     width: 100%;
@@ -175,6 +181,12 @@ body
     border-radius: 0.2em;
     
     
+}
+
+#noTasksHeader
+{
+    text-align: center;
+    display: none;
 }
 
 .tabsContainer
@@ -236,6 +248,8 @@ body
 {
     width: 1em;
     gap: 0.5em;
+
+    cursor: pointer;
 }
 
 
