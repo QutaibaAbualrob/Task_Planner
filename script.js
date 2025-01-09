@@ -138,12 +138,13 @@ const confirmOpreation = ()=>{
     
         })
         
-
+        /* 
         setTimeout(()=>{
             alert.style.display = "none";
             reject(flag);
     
         }, 5000)
+        */
         
     });
 
@@ -303,10 +304,11 @@ deleteDoneButton.onclick = async ()=>
     if(taskArr.length >= 1)
     {
         let flag =  await confirmOpreation();     
+        
         console.log(flag);
         if(flag)
         {
-
+            console.log("Deleting");     
             Array.from(taskArr).forEach(task =>{
                 if(task.id[1] === 't' )
                 {
@@ -320,7 +322,7 @@ deleteDoneButton.onclick = async ()=>
             
         }
     }
-        
+     
     
 };
 
@@ -332,6 +334,7 @@ deleteAllButton.onclick = async ()=>
         let flag =await confirmOpreation();
 
         if(flag){
+            console.log("Deleting");
             Array.from(taskArr).forEach(task =>{
                 task.remove();
             })

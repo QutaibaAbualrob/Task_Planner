@@ -43,11 +43,6 @@ body
     
 }   
 
-.blue
-{
-    background-color: #0a96ba;   
-}
-
 
 ::-webkit-scrollbar
 {
@@ -364,12 +359,19 @@ body
 .alertContent div button
 {   
     padding: 0.5em 2em;
-    background-color: lightgray;
     border: none;
-
+    color: white;
 }
 
+#confirmOpreationButton
+{
+    background-color: #0a96ba;
+}
 
+#cancelOpreationButton
+{
+    background-color: #e94242;
+}
 
 
 .alertEdit
@@ -429,8 +431,9 @@ body
 .alertEditContent div button
 {  
     
-    padding: 1em 2em;
+    padding: 0.5em 2em;
     border: none;
+    color: white;
 
 }
 
@@ -438,6 +441,11 @@ body
 {
     background-color: #0a96ba;
     color: white;
+}
+
+#cancelOpreationButtonEdit
+{
+    background-color: #e94242;
 }
 
 #inputEditNote
