@@ -362,7 +362,7 @@ scrollContainerDiv.addEventListener("click", async (event)=>{
        
     }
 
-    if(event.target.checked || !event.target.checked ){
+    if(event.target.type ==="checkbox" && (event.target.checked || !event.target.checked) ){
         const task = event.target.closest(".task");
         const paragraphToEdit  = task.querySelector("p");
 
