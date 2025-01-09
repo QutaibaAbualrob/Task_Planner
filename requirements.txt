@@ -12,7 +12,7 @@
 
 4- Add function to mark a task as complete from the checkbox.
 
-5- Add a screen pop up as ALERT like pop ups that asks the user if they want to delete tasks.
+5- Add a screen pop up as ALERT like pop ups that asks the user if they want to delete tasks.  ✔✔✔✔
 
 6- Add a function to make the delete buttons to be pale when theres no DONE TASKS or THERES NO TASKS.
 

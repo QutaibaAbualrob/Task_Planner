@@ -35,30 +35,51 @@ let deleteDoneButton = document.getElementById("deleteDone")
 let deleteAllButton = document.getElementById("deleteAll")
 
 
+
+
+
+
+
 const confirmOpreation = ()=>{
 
     let flag = false;
     alert.style.display = "flex";
 
-    const timeID = setTimeout(()=>{
-        alert.style.display = "none";
-        return flag;
+/*
+    Here is the promise that forces the compiler to wait for input from a diffrent slower part
+    of the code.
 
-    }, 5000);
+    NOTE:
+    You should declare the function that will deal with promises as ASYNC function
+*/ 
 
-    confirmOpreationButton.addEventListener("click", ()=>{
-        console.log("Hello this is inside confirm");
-        flag = true;
-        alert.style.display = "none";
+    return new Promise((resolve, reject)=>{
+       
+        confirmOpreationButton.addEventListener("click", ()=>{
+            console.log("Hello this is inside confirm");
+            alert.style.display = "none";
+            flag = true;
+            resolve(flag);
+        }),
+
+        cancelOpreationButton.addEventListener("click", ()=>{
+            console.log("Hello this is inside cancel");
+            alert.style.display = "none";
+            resolve(flag =false);
+    
+        })
+        
+
+        setTimeout(()=>{
+            alert.style.display = "none";
+            reject(flag);
+    
+        }, 5000)
         
     });
 
-    cancelOpreationButton.addEventListener("click", ()=>{
-        console.log("Hello this is inside cancel");
-        flag =false;
-        alert.style.display = "none";
+    
 
-    });
 
 
     
@@ -197,12 +218,19 @@ todoButton.onclick = ()=>
 };
 
 
+/*
+    I used here Async to wait for the user to input from the buttons
+    as the compiler wont wait for input, either you use timeout callback (Which is hell)
+    or you use promise which is the sane easier choice 😎
 
-deleteDoneButton.onclick = ()=>
+    NOTE:
+    You should declare the function that will deal with promises as ASYNC function
+*/ 
+deleteDoneButton.onclick = async ()=>
 {
     if(taskArr.length >= 1)
     {
-        let flag = confirmOpreation();     
+        let flag =  await confirmOpreation();     
         console.log(flag);
         if(flag)
         {
@@ -228,18 +256,22 @@ deleteDoneButton.onclick = ()=>
 };
 
 
-deleteAllButton.onclick = ()=>
+deleteAllButton.onclick = async ()=>
 {
     if(taskArr.length >= 1)
     {
-        Array.from(taskArr).forEach(task =>{
-            task.remove();
-        })
+        let flag =await confirmOpreation();
 
-        noTasksHeader.style.display = "block";
+        if(flag){
+            Array.from(taskArr).forEach(task =>{
+                task.remove();
+            })
+
+            noTasksHeader.style.display = "block";
+        }
+           
         
     }
-
     
         
     
