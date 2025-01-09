@@ -246,6 +246,12 @@ body
     border: 2px solid lightgray;
 }
 
+.taskParagraphCrossed
+{
+    color: red;
+    text-decoration: line-through  black;
+}
+
 .icons
 {
     display: flex;

@@ -54,6 +54,7 @@ const confirmOpreationEdit = ()=>{
         confirmOpreationButtonEdit.addEventListener("click", ()=>{
             flag[0] = "1";
             flag[1] = inputEdit.value;
+            inputEdit.value= "";
             alertEdit.style.display = "none";
             resolve(flag);
         })
@@ -339,6 +340,10 @@ scrollContainerDiv.addEventListener("click", async (event)=>{
             task.remove();
         }
 
+        if(taskArr.length <= 0)
+        {
+            noTasksHeader.style.display = "block";
+        }
 
 
     }
@@ -356,6 +361,30 @@ scrollContainerDiv.addEventListener("click", async (event)=>{
         }
        
     }
+
+    if(event.target.checked || !event.target.checked ){
+        const task = event.target.closest(".task");
+        const paragraphToEdit  = task.querySelector("p");
+
+        paragraphToEdit.classList.toggle("taskParagraphCrossed");
+        if(task.id[1] === 'f'){
+
+            task.id = task.id[0] + 't' + task.id[1].slice(2);
+            console.log("Inside false");
+            console.log(task.id);
+            console.log(paragraphToEdit);
+        }
+        else if (task.id[1] === 't') {
+            task.id = task.id[0] + 'f' + task.id[1].slice(2);
+            console.log("Inside true");
+            console.log(task.id);
+            console.log(paragraphToEdit);
+        }
+      
+        
+    }
+
+   
 
 
 });
