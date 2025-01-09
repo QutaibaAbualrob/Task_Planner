@@ -14,14 +14,14 @@
 
 5- Add a screen pop up as ALERT like pop ups that asks the user if they want to delete tasks.  ✔✔✔✔
 
-6- Add a function to make the delete buttons to be pale when theres no DONE TASKS or THERES NO TASKS.
+6- Make sure the delete buttons are disabled if theres no tasks for done and all. ✔✔✔✔
 
 7- Add the ability to store user progress in the local storage (cookies).
 
 
-8- Fix no tasks header implementation to be more maintainable (Make a function to be called to check).
+8- Fix no tasks header implementation to be more maintainable (Make a function to be called to check). ✔✔✔✔
 
-9- Check for input data to (Doesnt start with a number, its longer than 5 char) for both input box and edit box, when edit it accepts empty input.
+9- Check for input data to (Doesnt start with a number, its longer than 5 char) for both input box and edit box, when edit it accepts empty input. ✔✔✔✔
 
 
 
