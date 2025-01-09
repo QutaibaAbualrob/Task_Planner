@@ -1,6 +1,10 @@
 
 
 
+// Alert buttons and div
+let alert = document.getElementById("confirmOpreation");
+let confirmOpreationButton = document.getElementById("confirmOpreationButton");
+let cancelOpreationButton = document.getElementById("cancelOpreationButton");
 
 //Add new task button and input
 let mainInput = document.getElementById("mainInput");
@@ -30,6 +34,57 @@ let taskArr = document.getElementsByClassName("task");
 let deleteDoneButton = document.getElementById("deleteDone")
 let deleteAllButton = document.getElementById("deleteAll")
 
+
+
+
+
+
+
+const confirmOpreation = ()=>{
+
+    let flag = false;
+    alert.style.display = "flex";
+
+/*
+    Here is the promise that forces the compiler to wait for input from a diffrent slower part
+    of the code.
+
+    NOTE:
+    You should declare the function that will deal with promises as ASYNC function
+*/ 
+
+    return new Promise((resolve, reject)=>{
+       
+        confirmOpreationButton.addEventListener("click", ()=>{
+            console.log("Hello this is inside confirm");
+            alert.style.display = "none";
+            flag = true;
+            resolve(flag);
+        }),
+
+        cancelOpreationButton.addEventListener("click", ()=>{
+            console.log("Hello this is inside cancel");
+            alert.style.display = "none";
+            resolve(flag =false);
+    
+        })
+        
+
+        setTimeout(()=>{
+            alert.style.display = "none";
+            reject(flag);
+    
+        }, 5000)
+        
+    });
+
+    
+
+
+
+    
+
+};
 
 const addNewTask = ()=>
 {
@@ -163,46 +218,60 @@ todoButton.onclick = ()=>
 };
 
 
+/*
+    I used here Async to wait for the user to input from the buttons
+    as the compiler wont wait for input, either you use timeout callback (Which is hell)
+    or you use promise which is the sane easier choice 😎
 
-deleteDoneButton.onclick = ()=>
+    NOTE:
+    You should declare the function that will deal with promises as ASYNC function
+*/ 
+deleteDoneButton.onclick = async ()=>
 {
     if(taskArr.length >= 1)
     {
+        let flag =  await confirmOpreation();     
+        console.log(flag);
+        if(flag)
+        {
 
-        Array.from(taskArr).forEach(task =>{
-            if(task.id[1] === 't' )
-            {
-                task.remove();
-            }
+            Array.from(taskArr).forEach(task =>{
+                if(task.id[1] === 't' )
+                {
+                    task.remove();
+                }
 
-            if(taskArr.length <= 0)
-            {
-                noTasksHeader.style.display = "block";
-            }
+                if(taskArr.length <= 0)
+                {
+                    noTasksHeader.style.display = "block";
+                }
 
-        })
+            })
+                
             
-        
+        }
     }
+        
     
-
-    
-
 };
 
 
-deleteAllButton.onclick = ()=>
+deleteAllButton.onclick = async ()=>
 {
     if(taskArr.length >= 1)
     {
-        Array.from(taskArr).forEach(task =>{
-            task.remove();
-        })
+        let flag =await confirmOpreation();
 
-        noTasksHeader.style.display = "block";
+        if(flag){
+            Array.from(taskArr).forEach(task =>{
+                task.remove();
+            })
+
+            noTasksHeader.style.display = "block";
+        }
+           
         
     }
-
     
         
     
@@ -231,6 +300,19 @@ else
 
 ///////                Tasks functions 
 
-const deletTaskIcon = ()=>{
-    
-}
+scrollContainerDiv.addEventListener("click", (event)=>{
+
+    if(event.target.alt == "deleteIcon"){
+
+        const taskToDelete = event.target.closest(".task");
+
+        if(taskToDelete){
+            taskToDelete.remove();
+        }
+
+
+
+    }
+
+
+});
