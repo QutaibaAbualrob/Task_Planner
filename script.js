@@ -6,7 +6,7 @@ let alertEdit = document.getElementById("confirmEdit");
 let confirmOpreationButtonEdit = document.getElementById("confirmOpreationButtonEdit");
 let cancelOpreationButtonEdit = document.getElementById("cancelOpreationButtonEdit");
 let inputEdit = document.getElementById("alertEditContentInput");
-
+let inputEditNote = document.getElementById("inputEditNote");
 
 // Alert buttons and div
 let alert = document.getElementById("confirmOpreation");
@@ -72,17 +72,26 @@ const checkTaskCount = ()=>{
 const confirmOpreationEdit = ()=>{
     let flag = [];
     flag[0] = "0";
-
+    inputEdit.value= "";
     alertEdit.style.display = "flex";
 
     return new Promise((resolve, reject) =>{
 
         confirmOpreationButtonEdit.addEventListener("click", ()=>{
-            flag[0] = "1";
-            flag[1] = inputEdit.value;
-            inputEdit.value= "";
-            alertEdit.style.display = "none";
-            resolve(flag);
+            if(checkInpt(inputEdit.value)){
+                flag[0] = "1";
+                flag[1] = inputEdit.value;
+                alertEdit.style.display = "none";
+                resolve(flag);
+            }
+            else{
+                inputEditNote.style.display = "block";
+                setTimeout(()=>{
+                    inputEditNote.style.display = "none";
+        
+                }, 3000);
+            }
+                
         })
 
         cancelOpreationButtonEdit.addEventListener("click", ()=>{
@@ -91,11 +100,7 @@ const confirmOpreationEdit = ()=>{
         })
 
 
-
-        setTimeout(()=>{
-            alertEdit.style.display = "none";
-            reject(flag);
-        }, 30000);
+        
     })
 
 
@@ -216,6 +221,7 @@ addNewTaskButton.onclick = ()=>
     else
     {
         inputNote.style.display = "block";
+        setTimeout(()=>{inputNote.style.display = ""}, 10000)
     }
         
 }
@@ -350,6 +356,7 @@ checkTaskCount();
 
 scrollContainerDiv.addEventListener("click", async (event)=>{
 
+    // Event for deleting task
     if(event.target.alt === "deleteIcon"){
 
         const task = event.target.closest(".task");
@@ -362,6 +369,7 @@ scrollContainerDiv.addEventListener("click", async (event)=>{
 
     }
 
+    // Event for editing task
     if(event.target.alt === "pencilIcon" ){
         
 
@@ -376,6 +384,8 @@ scrollContainerDiv.addEventListener("click", async (event)=>{
        
     }
 
+
+    // Event for marking task done
     if(event.target.type ==="checkbox" && (event.target.checked || !event.target.checked) ){
         const task = event.target.closest(".task");
         const paragraphToEdit  = task.querySelector("p");

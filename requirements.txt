@@ -21,7 +21,7 @@
 
 8- Fix no tasks header implementation to be more maintainable (Make a function to be called to check). ✔✔✔✔
 
-9- Check for input data to (Doesnt start with a number, its longer than 5 char) for both input box and edit box, when edit it accepts empty input.
+9- Check for input data to (Doesnt start with a number, its longer than 5 char) for both input box and edit box, when edit it accepts empty input. ✔✔✔✔
 
 
 

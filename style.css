@@ -400,7 +400,7 @@ body
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    gap: 2em;
+    gap: 1.2em;
 
 
 
@@ -421,14 +421,15 @@ body
 .alertEditContent div
 {
     display: flex;
-    gap: 2em;
+    gap: 1em;
+    
 }
 
 
 .alertEditContent div button
 {  
     
-    padding: 0.5em 2em;
+    padding: 1em 2em;
     border: none;
 
 }
@@ -437,4 +438,13 @@ body
 {
     background-color: #0a96ba;
     color: white;
+}
+
+#inputEditNote
+{
+    display: none;
+    color: red;
+
+    font-size: 1em;
+    text-align: center;
 }
