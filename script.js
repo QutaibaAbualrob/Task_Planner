@@ -41,10 +41,31 @@ let taskArr = document.getElementsByClassName("task");
 let deleteDoneButton = document.getElementById("deleteDone")
 let deleteAllButton = document.getElementById("deleteAll")
 
+
+
+
+const checkInpt = (text)=>{
+    const check = /^[0-5]/;
+    
+    if(text.length > 0){
+        if(!check.test(text)){
+            return true;
+        }
+
+    }
+    return false;
+};
+
+
+
+
+
 const checkTaskCount = ()=>{
+    
     if(taskArr.length <= 0)
     {
         noTasksHeader.style.display = "block";
+        
     }
 }
 
@@ -185,7 +206,9 @@ const addNewTask = ()=>
 
 addNewTaskButton.onclick = ()=>
 {
-    if(mainInput.value.length >= 5)
+    let text = mainInput.value;
+    
+    if(checkInpt(text))
     {
         addNewTask();
         inputNote.style.display = "";
