@@ -43,6 +43,11 @@ body
     
 }   
 
+.blue
+{
+    background-color: #0a96ba;   
+}
+
 
 ::-webkit-scrollbar
 {
@@ -355,4 +360,74 @@ body
     background-color: lightgray;
     border: none;
 
+}
+
+
+
+
+.alertEdit
+{
+    height: 100%;
+    width: 100%;
+
+    display: none;
+    justify-content: center;
+    align-items: center;
+
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+
+    background-color: rgba(0, 0, 0, 0.4);
+    z-index: 8000;
+}
+
+.alertEditContent
+{
+
+    width: 25em;
+    height: 15em;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 2em;
+
+
+
+    border-radius: 1em;
+    background-color: white;
+}
+
+.alertEditContent input
+{
+    padding: 0.5em 6em 0.5em 1em; 
+
+
+    border: 1px solid black;
+    outline: none;
+    
+}
+
+.alertEditContent div
+{
+    display: flex;
+    gap: 2em;
+}
+
+
+.alertEditContent div button
+{  
+    
+    padding: 0.5em 2em;
+    border: none;
+
+}
+
+.alertEditConfirmButton
+{
+    background-color: #0a96ba;
+    color: white;
 }

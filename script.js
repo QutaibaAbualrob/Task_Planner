@@ -1,6 +1,13 @@
 
 
 
+// Edit content Alert buttons and div
+let alertEdit = document.getElementById("confirmEdit");
+let confirmOpreationButtonEdit = document.getElementById("confirmOpreationButtonEdit");
+let cancelOpreationButtonEdit = document.getElementById("cancelOpreationButtonEdit");
+let inputEdit = document.getElementById("alertEditContentInput");
+
+
 // Alert buttons and div
 let alert = document.getElementById("confirmOpreation");
 let confirmOpreationButton = document.getElementById("confirmOpreationButton");
@@ -36,7 +43,37 @@ let deleteAllButton = document.getElementById("deleteAll")
 
 
 
+const confirmOpreationEdit = ()=>{
+    let flag = [];
+    flag[0] = "0";
 
+    alertEdit.style.display = "flex";
+
+    return new Promise((resolve, reject) =>{
+
+        confirmOpreationButtonEdit.addEventListener("click", ()=>{
+            flag[0] = "1";
+            flag[1] = inputEdit.value;
+            alertEdit.style.display = "none";
+            resolve(flag);
+        })
+
+        cancelOpreationButtonEdit.addEventListener("click", ()=>{
+            alertEdit.style.display = "none";
+            resolve(flag);
+        })
+
+
+
+        setTimeout(()=>{
+            alertEdit.style.display = "none";
+            reject(flag);
+        }, 30000);
+    })
+
+
+
+};
 
 
 
@@ -290,28 +327,34 @@ else
 
 
 
-
-
-
-
-
-
-
-
 ///////                Tasks functions 
 
-scrollContainerDiv.addEventListener("click", (event)=>{
+scrollContainerDiv.addEventListener("click", async (event)=>{
 
-    if(event.target.alt == "deleteIcon"){
+    if(event.target.alt === "deleteIcon"){
 
-        const taskToDelete = event.target.closest(".task");
+        const task = event.target.closest(".task");
 
-        if(taskToDelete){
-            taskToDelete.remove();
+        if(task){
+            task.remove();
         }
 
 
 
+    }
+
+    if(event.target.alt === "pencilIcon" ){
+        
+
+        let flag = await confirmOpreationEdit();
+        if(flag[0] === "1"){
+            const task = event.target.closest(".task");
+            const paragraphToEdit  = task.querySelector("p");
+
+            paragraphToEdit.textContent = flag[1];
+
+        }
+       
     }
 
 
