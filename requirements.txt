@@ -6,7 +6,7 @@
 1- Add function for adding new task. ✔✔✔✔
 
 
-2- Add funciton to delete the task from the bin icon. 
+2- Add funciton to delete the task from the bin icon.  ✔✔✔✔
 
 3- Add funciton to edit the task from the pen icon as a form of an ALERT that covers the screen.
 

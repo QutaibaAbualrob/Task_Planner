@@ -35,7 +35,10 @@ body
 {
 
    
-    height:100vh;
+    height: auto;
+    width: auto;
+
+
     font-family: "Montserrat", serif;
     
 }   
@@ -278,4 +281,78 @@ body
 {
     box-shadow: 0 0 20px rgba(10, 150, 186, 0.5);
    
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+.alert
+{
+    height: 100%;
+    width: 100%;
+
+    display: none;
+    justify-content: center;
+    align-items: center;
+
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+
+    background-color: rgba(0, 0, 0, 0.4);
+    z-index: 6969;
+}
+
+.alertContent
+{
+
+    width: 25em;
+    height: 15em;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 2em;
+
+
+
+    border-radius: 1em;
+    background-color: white;
+}
+
+.alertContent h1
+{
+    font-size: 1.5em;
+    text-align: center;
+}
+
+.alertContent div
+{
+    display: flex;
+    gap: 2em;
+}
+
+.alertContent div button
+{   
+    padding: 0.5em 2em;
+    background-color: lightgray;
+    border: none;
+
 }

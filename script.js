@@ -1,6 +1,10 @@
 
 
 
+// Alert buttons and div
+let alert = document.getElementById("confirmOpreation");
+let confirmOpreationButton = document.getElementById("confirmOpreationButton");
+let cancelOpreationButton = document.getElementById("cancelOpreationButton");
 
 //Add new task button and input
 let mainInput = document.getElementById("mainInput");
@@ -30,6 +34,36 @@ let taskArr = document.getElementsByClassName("task");
 let deleteDoneButton = document.getElementById("deleteDone")
 let deleteAllButton = document.getElementById("deleteAll")
 
+
+const confirmOpreation = ()=>{
+
+    let flag = false;
+    alert.style.display = "flex";
+
+    const timeID = setTimeout(()=>{
+        alert.style.display = "none";
+        return flag;
+
+    }, 5000);
+
+    confirmOpreationButton.addEventListener("click", ()=>{
+        console.log("Hello this is inside confirm");
+        flag = true;
+        alert.style.display = "none";
+        
+    });
+
+    cancelOpreationButton.addEventListener("click", ()=>{
+        console.log("Hello this is inside cancel");
+        flag =false;
+        alert.style.display = "none";
+
+    });
+
+
+    
+
+};
 
 const addNewTask = ()=>
 {
@@ -168,26 +202,29 @@ deleteDoneButton.onclick = ()=>
 {
     if(taskArr.length >= 1)
     {
+        let flag = confirmOpreation();     
+        console.log(flag);
+        if(flag)
+        {
 
-        Array.from(taskArr).forEach(task =>{
-            if(task.id[1] === 't' )
-            {
-                task.remove();
-            }
+            Array.from(taskArr).forEach(task =>{
+                if(task.id[1] === 't' )
+                {
+                    task.remove();
+                }
 
-            if(taskArr.length <= 0)
-            {
-                noTasksHeader.style.display = "block";
-            }
+                if(taskArr.length <= 0)
+                {
+                    noTasksHeader.style.display = "block";
+                }
 
-        })
+            })
+                
             
-        
+        }
     }
+        
     
-
-    
-
 };
 
 
@@ -231,6 +268,19 @@ else
 
 ///////                Tasks functions 
 
-const deletTaskIcon = ()=>{
-    
-}
+scrollContainerDiv.addEventListener("click", (event)=>{
+
+    if(event.target.alt == "deleteIcon"){
+
+        const taskToDelete = event.target.closest(".task");
+
+        if(taskToDelete){
+            taskToDelete.remove();
+        }
+
+
+
+    }
+
+
+});
