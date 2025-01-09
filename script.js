@@ -41,7 +41,12 @@ let taskArr = document.getElementsByClassName("task");
 let deleteDoneButton = document.getElementById("deleteDone")
 let deleteAllButton = document.getElementById("deleteAll")
 
-
+const checkTaskCount = ()=>{
+    if(taskArr.length <= 0)
+    {
+        noTasksHeader.style.display = "block";
+    }
+}
 
 const confirmOpreationEdit = ()=>{
     let flag = [];
@@ -279,10 +284,7 @@ deleteDoneButton.onclick = async ()=>
                     task.remove();
                 }
 
-                if(taskArr.length <= 0)
-                {
-                    noTasksHeader.style.display = "block";
-                }
+                checkTaskCount();
 
             })
                 
@@ -305,7 +307,7 @@ deleteAllButton.onclick = async ()=>
                 task.remove();
             })
 
-            noTasksHeader.style.display = "block";
+            checkTaskCount();
         }
            
         
@@ -316,14 +318,7 @@ deleteAllButton.onclick = async ()=>
 };
 
 
-if(taskArr.length > 0)
-{
-    noTasksHeader.style.display = "none";
-}
-else
-{
-    noTasksHeader.style.display = "block"; 
-}
+checkTaskCount();
 
 
 
@@ -340,11 +335,7 @@ scrollContainerDiv.addEventListener("click", async (event)=>{
             task.remove();
         }
 
-        if(taskArr.length <= 0)
-        {
-            noTasksHeader.style.display = "block";
-        }
-
+        checkTaskCount();
 
     }
 

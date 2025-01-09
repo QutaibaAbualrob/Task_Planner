@@ -10,7 +10,7 @@
 
 3- Add funciton to edit the task from the pen icon as a form of an ALERT that covers the screen. ✔✔✔✔
 
-4- Add function to mark a task as complete from the checkbox.
+4- Add function to mark a task as complete from the checkbox. ✔✔✔✔
 
 5- Add a screen pop up as ALERT like pop ups that asks the user if they want to delete tasks.  ✔✔✔✔
 
