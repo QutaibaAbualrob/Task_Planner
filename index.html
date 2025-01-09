@@ -12,14 +12,114 @@
 </head>
 
 <body>
+    
+    <section class="container">
 
-    <h1 id="header"  onclick="changeColor()">To do Input</h1>
+        <h1>To do input</h1>
+        <div class="inputContainer">   
+            <div class="inputContainerContent">
+                <div>
+                    <img class="inputIcon" src="./sourceImages/icons/book-solid_icon.svg" alt="book icon">
+                    <input id="mainInput" placeholder="New todo">
+                    
+                </div>
+                <p id="inputNote">Input must be longer than 5 characters and doesnt start with a number</p>
+                <br>
+                <button id="inputButton">Add new Task</button>
+            </div>
+        </div>
+
+        <h1>To do list</h1>
+        <div class="listContainer">
+            <div class="tabsContainer">
+                <button class="tabButton" id="all">All</button>
+                <button class="tabButton" id="done">Done</button>
+                <button class="tabButton" id="todo">ToDo</button>
+            </div>
+
+            <div class="scrollContainer" id="scrollContainer">
+                <h3 id="noTasksHeader">NO TASKS!</h3>
+                <div class="task" id="1f">
+                    
+                    <p >Task 1</p>
+
+                    <div class="icons">
+                        <input type="checkbox" value="true">
+                        <img src="./sourceImages/icons/pencil-solid.svg" alt="pencilIcon" >
+                        <img src="./sourceImages/icons/trash-solid.svg" alt="deleteIcon">
+                    </div>
+                </div>
+
+                <div class="task" id="2f">
+                    
+                    <p >Task 2</p>
+
+                    <div class="icons">
+                        <input type="checkbox">
+                        <img src="./sourceImages/icons/pencil-solid.svg" alt="pencilIcon">
+                        <img src="./sourceImages/icons/trash-solid.svg" alt="deleteIcon">
+                    </div>
+                </div>
+                
+                <div class="task" id="3f">
+                    
+                    <p >Task 3</p>
+
+                    <div class="icons">
+                        <input type="checkbox">
+                        <img src="./sourceImages/icons/pencil-solid.svg" alt="pencilIcon">
+                        <img src="./sourceImages/icons/trash-solid.svg" alt="deleteIcon">
+                    </div>
+                </div>
+
+                <div class="task" id="4f">
+                    
+                    <p class="">Task 4 Hello this is test for decoration</p>
+
+                    <div class="icons">
+                        <input type="checkbox">
+                        <img src="./sourceImages/icons/pencil-solid.svg" alt="pencilIcon">
+                        <img src="./sourceImages/icons/trash-solid.svg" alt="deleteIcon" >
+                    </div>
+                </div>
+
+                
+                
+                
+            </div>
+
+            <div class="deleteContainer">
+                <button class="deleteButton" id="deleteDone">Delete Done Tasks</button>
+                <button class="deleteButton"id="deleteAll">Delete All Tasks</button>
+            </div>
+        </div>
+    </section>
+
+    <div class="alert" id="confirmOpreation">
+        <div class="alertContent">
+            <h1>Are you sure you want to do the opreation?<Br><Br>(Cant undo changes)</h1>
+            <div>
+                <button id="confirmOpreationButton">Confirm</button>
+                <button id="cancelOpreationButton" >Cancel</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="alertEdit" id="confirmEdit">
+        <div class="alertEditContent">
+            <h1>Rename Task</h1>
+                <input id="alertEditContentInput" type="text" placeholder="New content">
+                <p id="inputEditNote">Input must be longer than 5 characters and doesnt start with a number</p>
+            <div>
+                <button class="alertEditConfirmButton" id="confirmOpreationButtonEdit">Confirm</button>
+                <button id="cancelOpreationButtonEdit" >Cancel</button>
+            </div>
+        </div>
+    </div>
 
 
 
-
-
-
+    <script src="./script.js"></script>
 </body>
 
 </html>
