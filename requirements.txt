@@ -10,7 +10,7 @@
 
 3- Add funciton to edit the task from the pen icon as a form of an ALERT that covers the screen. ✔✔✔✔
 
-4- Add function to mark a task as complete from the checkbox.
+4- Add function to mark a task as complete from the checkbox. ✔✔✔✔
 
 5- Add a screen pop up as ALERT like pop ups that asks the user if they want to delete tasks.  ✔✔✔✔
 
@@ -21,7 +21,7 @@
 
 8- Fix no tasks header implementation to be more maintainable (Make a function to be called to check).
 
-9- Check for input data to (Doesnt start with a number, its longer than 5 char) for both input box and edit box
+9- Check for input data to (Doesnt start with a number, its longer than 5 char) for both input box and edit box, when edit it accepts empty input.
 
 
 
