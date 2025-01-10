@@ -2,35 +2,25 @@
 
 
 
+1- Make a new method to build the tasks in the html from storage not directly from input (Store only:
+task.id
+p.class
+p.textContent) ✔✔✔
 
-1- Add function for adding new task. ✔✔✔✔
+2- Edit the input new task to store the object in a local storage. ✔✔✔
 
-
-2- Add funciton to delete the task from the bin icon.  ✔✔✔✔
-
-3- Add funciton to edit the task from the pen icon as a form of an ALERT that covers the screen. ✔✔✔✔
-
-4- Add function to mark a task as complete from the checkbox. ✔✔✔✔
-
-5- Add a screen pop up as ALERT like pop ups that asks the user if they want to delete tasks.  ✔✔✔✔
-
-6- Make sure the delete buttons are disabled if theres no tasks for done and all. ✔✔✔✔
-
-7- Add the ability to store user progress in the local storage (cookies).
+3- Implement display tasks on load. ✔✔✔
 
 
-8- Fix no tasks header implementation to be more maintainable (Make a function to be called to check). ✔✔✔✔
+4- Edit delete methods Implementation to delete them from local storage instead of HTML. ✔✔✔
 
-9- Check for input data to (Doesnt start with a number, its longer than 5 char) for both input box and edit box, when edit it accepts empty input. ✔✔✔✔
+5- Maybe you have to reimplement the blue buttons.
 
+6- Edit Rename tasks method to deal with localstorage.
 
+7- Edit checkbox for tasks to deal with localstorage state.
 
-
-
-
-
-
-
+8- Edit the behavior of blue buttons to deal with localstorage
 
 
 

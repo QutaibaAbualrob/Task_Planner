@@ -1,5 +1,6 @@
 
-
+// Local storage area
+let localTasks = [];
 
 // Edit content Alert buttons and div
 let alertEdit = document.getElementById("confirmEdit");
@@ -42,6 +43,38 @@ let deleteDoneButton = document.getElementById("deleteDone")
 let deleteAllButton = document.getElementById("deleteAll")
 
 
+const storeLocal = (localTasks)=>{
+
+    const temp = JSON.stringify(localTasks);
+    localStorage.setItem("tasks", temp);
+
+    console.log("This is inside storeLocal and this is the localTasks array :");
+    console.log(localTasks);
+    displayTasks();
+}
+
+const saveTask = (text)=>{
+    let task = {
+        taskId : localTasks.length + 'f',
+        paragraphStatus: "",
+        paragraphContent: text
+    };
+
+    console.log("This is inside saveTask and this is the object :");
+    console.log(task);
+
+    localTasks.push(task);
+    
+    storeLocal(localTasks);
+   
+};
+
+const unloadTask = ()=>{
+
+    const tasks = localStorage.getItem("tasks");
+    const unloadedTasks = tasks ? JSON.parse(tasks) : [];  
+    return unloadedTasks;
+}
 
 
 const checkInpt = (text)=>{
@@ -161,53 +194,81 @@ const addNewTask = ()=>
     let text = mainInput.value;
     mainInput.value = "";
 
+    console.log("This is inside add new task and this is the text from button:");
+    console.log(text);
 
-    //creating the new div
-    let newTask = document.createElement("div");
-
-    newTask.className = "task";
-    let taskCount = taskArr.length;
-    newTask.id = taskCount + 'f';
-
-    //Creating the paragraph to containt the text content
-    let tempParagraph = document.createElement("p");
-    tempParagraph.textContent = text;
-
-    //Creating Icondiv and content for the icon div
-    let iconDiv = document.createElement("div");
-    iconDiv.className = "icons";
-
-    let tempCheckbox = document.createElement("input");
-    tempCheckbox.type = "checkbox";
-
-
-    let tempImg1 = document.createElement("img");
-    tempImg1.src = "./sourceImages/icons/pencil-solid.svg"
-    tempImg1.alt = "pencilIcon";
-
-    let tempImg2 = document.createElement("img")
-    tempImg2.src = "./sourceImages/icons/trash-solid.svg";
-    tempImg2.alt = "deleteIcon";
-
-    //Appending content to the icondiv
-    iconDiv.append(tempCheckbox);
-    iconDiv.append(tempImg1)
-    iconDiv.append(tempImg2)
-
-    //Appending content to the task div
-    newTask.append(tempParagraph);
-    newTask.append(iconDiv);
+    saveTask(text);
     
+}
 
-    //Appending task to task scroll container
-    scrollContainerDiv.append(newTask);
 
+
+//               NOT FINISHED
+window.onload = ()=>{
+    displayTasks();
+}
+
+const displayTasks = ()=>{
+    //creating the new div
+    const unloadedTasks = unloadTask();
+
+    console.log("This is inside display tasks, UnloadedTasks:")
+    console.log(unloadedTasks);
+    
+    if(unloadedTasks.length > 0){
+        unloadedTasks.forEach(task =>{
+
+            let newTask = document.createElement("div");
+
+            newTask.className = "task";
+            newTask.id = task.taskId;
+
+            //Creating the paragraph to containt the text content
+            let tempParagraph = document.createElement("p");
+            tempParagraph.textContent = task.paragraphContent;
+
+            //Creating Icondiv and content for the icon div
+            let iconDiv = document.createElement("div");
+            iconDiv.className = "icons";
+
+            let tempCheckbox = document.createElement("input");
+            tempCheckbox.type = "checkbox";
+            if(task.taskId === 't')
+                tempCheckbox.checked;
+
+            let tempImg1 = document.createElement("img");
+            tempImg1.src = "./sourceImages/icons/pencil-solid.svg"
+            tempImg1.alt = "pencilIcon";
+
+            let tempImg2 = document.createElement("img")
+            tempImg2.src = "./sourceImages/icons/trash-solid.svg";
+            tempImg2.alt = "deleteIcon";
+
+            //Appending content to the icondiv
+            iconDiv.append(tempCheckbox);
+            iconDiv.append(tempImg1)
+            iconDiv.append(tempImg2)
+
+            //Appending content to the task div
+            newTask.append(tempParagraph);
+            newTask.append(iconDiv);
+            
+
+            //Appending task to task scroll container
+            scrollContainerDiv.append(newTask);
+
+        })
+    }
+    else
+    {
+        noTasksHeader.style.display = "block";
+    }
+       
 
 
     //To make sure the no task note isnt shown
-    noTasksHeader.style.display = "none";
+    
 }
-
 
 
 addNewTaskButton.onclick = ()=>
@@ -339,7 +400,7 @@ deleteAllButton.onclick = async ()=>
                 task.remove();
             })
 
-            checkTaskCount();
+            
         }
            
         
@@ -350,7 +411,7 @@ deleteAllButton.onclick = async ()=>
 };
 
 
-checkTaskCount();
+
 
 
 
@@ -361,11 +422,35 @@ scrollContainerDiv.addEventListener("click", async (event)=>{
 
     // Event for deleting task
     if(event.target.alt === "deleteIcon"){
+        console.log("Inside delete icon");
 
-        const task = event.target.closest(".task");
+        const taskToDelete = event.target.closest(".task");
+        console.log("This is the selected task :");
+        console.log(taskToDelete);
+        console.log("This is the selected task id:");
+        console.log(taskToDelete.id);
 
-        if(task){
-            task.remove();
+        if(taskToDelete){
+            unloadedTasks = unloadTask();
+            console.log("This is the unloadedTasks :");
+            console.log(unloadedTasks);
+
+            if(unloadedTasks.length > 0){
+                let foundTask = unloadedTasks.find(task => taskToDelete.id === task.taskId);
+                console.log("This is the foundTask :");
+                console.log(foundTask);
+                if(foundTask){
+                    let foundTaskIndex = unloadedTasks.indexOf(foundTask);
+                    console.log("This is the foundTaskIndex :");
+                    console.log(foundTaskIndex);
+
+                    unloadedTasks.splice(foundTaskIndex, 1);
+                    storeLocal(unloadedTasks);
+                    taskToDelete.remove();
+                }
+                    
+            }
+                
         }
 
         checkTaskCount();
@@ -415,3 +500,57 @@ scrollContainerDiv.addEventListener("click", async (event)=>{
 
 
 });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/**
+ * 
+ *   <div class="task" id="3t">
+                    
+        <p class="taskParagraphCrossed"  >Task 3</p>
+
+        <div class="icons">
+            <input type="checkbox">
+            <img src="./sourceImages/icons/pencil-solid.svg" alt="pencilIcon">
+            <img src="./sourceImages/icons/trash-solid.svg" alt="deleteIcon">
+        </div>
+    </div>
+ * 
+ * 
+ * 
+ * 
+ */
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
