@@ -1,6 +1,6 @@
 
 // Local storage area
-let localTasks = [];
+
 
 // Edit content Alert buttons and div
 let alertEdit = document.getElementById("confirmEdit");
@@ -43,29 +43,33 @@ let deleteDoneButton = document.getElementById("deleteDone")
 let deleteAllButton = document.getElementById("deleteAll")
 
 
-const storeLocal = (localTasks)=>{
+const storeLocal = (task)=>{
 
-    const temp = JSON.stringify(localTasks);
-    localStorage.setItem("tasks", temp);
+    let localTasks = JSON.parse(localStorage.getItem("tasks")) || [];
+
+    // Add the new task to the array
+    localTasks.push(task);
+
+    // Save the updated task array back to localStorage
+    localStorage.setItem("tasks", JSON.stringify(localTasks));
 
     console.log("This is inside storeLocal and this is the localTasks array :");
     console.log(localTasks);
+    displayTasks();
     
 }
 
 const saveTask = (text)=>{
+    mainInput.value = "";
     let task = {
-        taskId : localTasks.length + 'f',
+        taskId : Math.floor((Math.random()*5)) + 'f',
         paragraphStatus: "",
         paragraphContent: text
     };
 
-    console.log("This is inside saveTask and this is the object :");
-    console.log(task);
 
-    localTasks.push(task);
     
-    storeLocal(localTasks);
+    storeLocal(task);
    
 };
 
@@ -398,8 +402,8 @@ deleteAllButton.onclick = async ()=>
         let flag =await confirmOpreation();
 
         if(flag){
-            localStorage.clear("tasks");
-            location.reload();
+            localStorage.removeItem("tasks");
+            displayTasks();
         }
            
         
@@ -561,6 +565,7 @@ scrollContainerDiv.addEventListener("click", async (event)=>{
 
 
 window.onload = ()=>{
+    
     allButton.classList.add("hoverEffect");
     displayTasks();
 }
