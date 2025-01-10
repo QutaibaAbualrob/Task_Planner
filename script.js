@@ -226,7 +226,9 @@ const displayTasks = ()=>{
             //Creating the paragraph to containt the text content
             let tempParagraph = document.createElement("p");
             tempParagraph.textContent = task.paragraphContent;
-            tempParagraph.classList = task.paragraphStatus[0];
+            if(task.taskId[1] === 't')
+                tempParagraph.classList = "taskParagraphCrossed";
+           
 
             //Creating Icondiv and content for the icon div
             let iconDiv = document.createElement("div");
@@ -526,8 +528,7 @@ scrollContainerDiv.addEventListener("click", async (event)=>{
                 console.log("This is the foundTask in done:");
                 console.log(foundTask);
                 if(foundTask){
-
-                    paragraphToEdit.classList.toggle("taskParagraphCrossed");
+   
                     if(taskToDone.id[1] === 'f'){
             
                         taskToDone.id = taskToDone.id[0] + 't' + taskToDone.id[1].slice(2);
@@ -546,9 +547,7 @@ scrollContainerDiv.addEventListener("click", async (event)=>{
                     let foundTaskIndex = unloadedTasks.indexOf(foundTask);
                     console.log("This is the foundTaskIndex in done:");
                     console.log(foundTaskIndex);
-
                     unloadedTasks[foundTaskIndex].taskId = taskToDone.id;
-                    unloadedTasks[foundTaskIndex].paragraphStatus = paragraphToEdit.classList;
                     storeLocal(unloadedTasks);
                     taskToDone.remove();
                 }
