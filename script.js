@@ -50,7 +50,7 @@ const storeLocal = (localTasks)=>{
 
     console.log("This is inside storeLocal and this is the localTasks array :");
     console.log(localTasks);
-    displayTasks();
+    
 }
 
 const saveTask = (text)=>{
@@ -77,16 +77,17 @@ const unloadTask = ()=>{
 }
 
 
-const checkInpt = (text)=>{
-    const check = /^[0-5]/;
+const checkInpt = (textTT)=>{
+    const check = /^(?!\d)/;
     
-    if(text.length > 0){
-        if(!check.test(text)){
-            return true;
-        }
-
+    if( textTT.length > 5 && check.test(textTT)){
+        
+        return true;
     }
-    return false;
+    else{
+        return false;
+    }
+     
 };
 
 
@@ -189,10 +190,8 @@ const confirmOpreation = ()=>{
 
 };
 
-const addNewTask = ()=>
+const addNewTask = (text)=>
 {
-    let text = mainInput.value;
-    mainInput.value = "";
 
     console.log("This is inside add new task and this is the text from button:");
     console.log(text);
@@ -204,9 +203,6 @@ const addNewTask = ()=>
 
 
 //               NOT FINISHED
-window.onload = ()=>{
-    displayTasks();
-}
 
 const displayTasks = ()=>{
     //creating the new div
@@ -280,7 +276,7 @@ addNewTaskButton.onclick = ()=>
     
     if(checkInpt(text))
     {
-        addNewTask();
+        addNewTask(text);
         inputNote.style.display = "";
     }
     else
@@ -331,6 +327,7 @@ doneButton.onclick = ()=>
         }
     }
 
+
 };
 
 todoButton.onclick = ()=>
@@ -350,6 +347,7 @@ todoButton.onclick = ()=>
                 task.style.display = "none";
         }
     }
+        
         
 
 };
@@ -393,17 +391,15 @@ deleteDoneButton.onclick = async ()=>
 
 deleteAllButton.onclick = async ()=>
 {
-    if(taskArr.length >= 1)
+    const unloadedTasks = unloadTask();
+    
+    if(unloadedTasks.length >= 1)
     {
         let flag =await confirmOpreation();
 
         if(flag){
-            console.log("Deleting");
-            Array.from(taskArr).forEach(task =>{
-                task.remove();
-            })
-
-            
+            localStorage.clear("tasks");
+            location.reload();
         }
            
         
@@ -549,7 +545,7 @@ scrollContainerDiv.addEventListener("click", async (event)=>{
                     console.log(foundTaskIndex);
                     unloadedTasks[foundTaskIndex].taskId = taskToDone.id;
                     storeLocal(unloadedTasks);
-                    taskToDone.remove();
+                    paragraphToEdit.classList.toggle("taskParagraphCrossed");
                 }
                     
             }
@@ -564,7 +560,10 @@ scrollContainerDiv.addEventListener("click", async (event)=>{
 });
 
 
-
+window.onload = ()=>{
+    allButton.classList.add("hoverEffect");
+    displayTasks();
+}
 
 
 

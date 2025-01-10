@@ -23,6 +23,8 @@ p.textContent) ✔✔✔
 8- Edit the behavior of blue buttons to deal with localstorage
 
 
+9- Change the behavior of red buttons to deal with local storage
+
 
 
 
