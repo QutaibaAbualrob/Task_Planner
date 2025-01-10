@@ -220,21 +220,22 @@ const displayTasks = ()=>{
 
             let newTask = document.createElement("div");
 
-            newTask.className = "task";
+            newTask.classList  = "task";
             newTask.id = task.taskId;
 
             //Creating the paragraph to containt the text content
             let tempParagraph = document.createElement("p");
             tempParagraph.textContent = task.paragraphContent;
+            tempParagraph.classList = task.paragraphStatus[0];
 
             //Creating Icondiv and content for the icon div
             let iconDiv = document.createElement("div");
-            iconDiv.className = "icons";
+            iconDiv.classList = "icons";
 
             let tempCheckbox = document.createElement("input");
             tempCheckbox.type = "checkbox";
-            if(task.taskId === 't')
-                tempCheckbox.checked;
+            if(task.taskId[1] === 't')
+                tempCheckbox.checked = true;
 
             let tempImg1 = document.createElement("img");
             tempImg1.src = "./sourceImages/icons/pencil-solid.svg"
@@ -437,11 +438,11 @@ scrollContainerDiv.addEventListener("click", async (event)=>{
 
             if(unloadedTasks.length > 0){
                 let foundTask = unloadedTasks.find(task => taskToDelete.id === task.taskId);
-                console.log("This is the foundTask :");
+                console.log("This is the foundTask in delete:");
                 console.log(foundTask);
                 if(foundTask){
                     let foundTaskIndex = unloadedTasks.indexOf(foundTask);
-                    console.log("This is the foundTaskIndex :");
+                    console.log("This is the foundTaskIndex in delete:");
                     console.log(foundTaskIndex);
 
                     unloadedTasks.splice(foundTaskIndex, 1);
@@ -478,11 +479,11 @@ scrollContainerDiv.addEventListener("click", async (event)=>{
     
                 if(unloadedTasks.length > 0){
                     let foundTask = unloadedTasks.find(task => taskToEdit.id === task.taskId);
-                    console.log("This is the foundTask :");
+                    console.log("This is the foundTask in edit:");
                     console.log(foundTask);
                     if(foundTask){
                         let foundTaskIndex = unloadedTasks.indexOf(foundTask);
-                        console.log("This is the foundTaskIndex :");
+                        console.log("This is the foundTaskIndex in edit:");
                         console.log(foundTaskIndex);
     
                         unloadedTasks[foundTaskIndex].paragraphContent = flag[1];
@@ -504,25 +505,58 @@ scrollContainerDiv.addEventListener("click", async (event)=>{
 
     // Event for marking task done
     if(event.target.type ==="checkbox" && (event.target.checked || !event.target.checked) ){
-        const task = event.target.closest(".task");
-        const paragraphToEdit  = task.querySelector("p");
+        console.log("Inside checkbox icon");
 
-        paragraphToEdit.classList.toggle("taskParagraphCrossed");
-        if(task.id[1] === 'f'){
+        const taskToDone = event.target.closest(".task");
+        const paragraphToEdit  = taskToDone.querySelector("p");
 
-            task.id = task.id[0] + 't' + task.id[1].slice(2);
-            console.log("Inside false");
-            console.log(task.id);
-            console.log(paragraphToEdit);
+        console.log("This is the selected task done :");
+        console.log(taskToDone);
+        console.log("This is the selected task id:");
+        console.log(taskToDone.id);
+
+
+        if(taskToDone){
+            unloadedTasks = unloadTask();
+            console.log("This is the unloadedTasks inside done :");
+            console.log(unloadedTasks);
+
+            if(unloadedTasks.length > 0){
+                let foundTask = unloadedTasks.find(task => taskToDone.id === task.taskId);
+                console.log("This is the foundTask in done:");
+                console.log(foundTask);
+                if(foundTask){
+
+                    paragraphToEdit.classList.toggle("taskParagraphCrossed");
+                    if(taskToDone.id[1] === 'f'){
+            
+                        taskToDone.id = taskToDone.id[0] + 't' + taskToDone.id[1].slice(2);
+                        console.log("Inside false");
+                        console.log(taskToDone.id);
+                        console.log(paragraphToEdit);
+                    }
+                    else if (taskToDone.id[1] === 't') {
+                        taskToDone.id = taskToDone.id[0] + 'f' + taskToDone.id[1].slice(2);
+                        console.log("Inside true");
+                        console.log(taskToDone.id);
+                        console.log(paragraphToEdit);
+                    }
+
+
+                    let foundTaskIndex = unloadedTasks.indexOf(foundTask);
+                    console.log("This is the foundTaskIndex in done:");
+                    console.log(foundTaskIndex);
+
+                    unloadedTasks[foundTaskIndex].taskId = taskToDone.id;
+                    unloadedTasks[foundTaskIndex].paragraphStatus = paragraphToEdit.classList;
+                    storeLocal(unloadedTasks);
+                    taskToDone.remove();
+                }
+                    
+            }
+                
         }
-        else if (task.id[1] === 't') {
-            task.id = task.id[0] + 'f' + task.id[1].slice(2);
-            console.log("Inside true");
-            console.log(task.id);
-            console.log(paragraphToEdit);
-        }
-      
-        
+         
     }
 
    

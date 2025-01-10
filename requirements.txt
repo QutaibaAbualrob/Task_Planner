@@ -16,9 +16,9 @@ p.textContent) ✔✔✔
 
 5- Maybe you have to reimplement the blue buttons.
 
-6- Edit Rename tasks method to deal with localstorage.
+6- Edit Rename tasks method to deal with localstorage. ✔✔✔
 
-7- Edit checkbox for tasks to deal with localstorage state.
+7- Edit checkbox for tasks to deal with localstorage state. ✔✔✔ NOTE : It has a bug with assigning the class list of the paragraph
 
 8- Edit the behavior of blue buttons to deal with localstorage
 
