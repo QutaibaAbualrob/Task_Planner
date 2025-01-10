@@ -432,7 +432,7 @@ scrollContainerDiv.addEventListener("click", async (event)=>{
 
         if(taskToDelete){
             unloadedTasks = unloadTask();
-            console.log("This is the unloadedTasks :");
+            console.log("This is the unloadedTasks inside delete:");
             console.log(unloadedTasks);
 
             if(unloadedTasks.length > 0){
@@ -453,7 +453,7 @@ scrollContainerDiv.addEventListener("click", async (event)=>{
                 
         }
 
-        checkTaskCount();
+        
 
     }
 
@@ -463,10 +463,39 @@ scrollContainerDiv.addEventListener("click", async (event)=>{
 
         let flag = await confirmOpreationEdit();
         if(flag[0] === "1"){
-            const task = event.target.closest(".task");
-            const paragraphToEdit  = task.querySelector("p");
 
-            paragraphToEdit.textContent = flag[1];
+            console.log("Inside Edit icon");
+            const taskToEdit = event.target.closest(".task");
+            console.log("This is the selected task :");
+            console.log(taskToEdit);
+            console.log("This is the selected task id:");
+            console.log(taskToEdit.id);
+
+            if(taskToEdit){
+                unloadedTasks = unloadTask();
+                console.log("This is the unloadedTasks inside edit:");
+                console.log(unloadedTasks);
+    
+                if(unloadedTasks.length > 0){
+                    let foundTask = unloadedTasks.find(task => taskToEdit.id === task.taskId);
+                    console.log("This is the foundTask :");
+                    console.log(foundTask);
+                    if(foundTask){
+                        let foundTaskIndex = unloadedTasks.indexOf(foundTask);
+                        console.log("This is the foundTaskIndex :");
+                        console.log(foundTaskIndex);
+    
+                        unloadedTasks[foundTaskIndex].paragraphContent = flag[1];
+                        storeLocal(unloadedTasks);
+                        
+                    }
+                        
+                }
+                    
+            }
+            taskToEdit.remove();
+
+           
 
         }
        
