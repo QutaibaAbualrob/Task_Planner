@@ -1,31 +1,8 @@
 
 
 
+1- Bug with store local method when using it with task icons (Its programmed to store tasks not arrays)
 
-1- Make a new method to build the tasks in the html from storage not directly from input (Store only:
-task.id
-p.class
-p.textContent) ✔✔✔
+2- Implement a method to display no tasks when no tasks
 
-2- Edit the input new task to store the object in a local storage. ✔✔✔
-
-3- Implement display tasks on load. ✔✔✔
-
-
-4- Edit delete methods Implementation to delete them from local storage instead of HTML. ✔✔✔
-
-5- Maybe you have to reimplement the blue buttons.
-
-6- Edit Rename tasks method to deal with localstorage. ✔✔✔
-
-7- Edit checkbox for tasks to deal with localstorage state. ✔✔✔ NOTE : It has a bug with assigning the class list of the paragraph
-
-8- Edit the behavior of blue buttons to deal with localstorage
-
-
-9- Change the behavior of red buttons to deal with local storage
-
-
-
-
-
+3- Fix delete done button

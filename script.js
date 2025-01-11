@@ -43,6 +43,20 @@ let deleteDoneButton = document.getElementById("deleteDone")
 let deleteAllButton = document.getElementById("deleteAll")
 
 
+const storeTaskChange = (task, index)=>{
+    let temp = unloadTask();
+    
+    if(temp.length > 0 && task != null ){
+        temp[index].taskId = task.taskId;
+        temp[index].paragraphContent = task.paragraphContent;
+    }
+
+    localStorage.setItem('tasks', JSON.stringify(temp));
+
+}
+
+
+
 const storeLocal = (task)=>{
 
     let localTasks = JSON.parse(localStorage.getItem("tasks")) || [];
@@ -53,8 +67,7 @@ const storeLocal = (task)=>{
     // Save the updated task array back to localStorage
     localStorage.setItem("tasks", JSON.stringify(localTasks));
 
-    console.log("This is inside storeLocal and this is the localTasks array :");
-    console.log(localTasks);
+   
     displayTasks();
     
 }
@@ -98,14 +111,7 @@ const checkInpt = (textTT)=>{
 
 
 
-const checkTaskCount = ()=>{
-    
-    if(taskArr.length <= 0)
-    {
-        noTasksHeader.style.display = "block";
-        
-    }
-}
+
 
 const confirmOpreationEdit = ()=>{
     let flag = [];
@@ -163,14 +169,14 @@ const confirmOpreation = ()=>{
     return new Promise((resolve, reject)=>{
        
         confirmOpreationButton.addEventListener("click", ()=>{
-            console.log("Hello this is inside confirm");
+           
             alert.style.display = "none";
             flag = true;
             resolve(flag);
         }),
 
         cancelOpreationButton.addEventListener("click", ()=>{
-            console.log("Hello this is inside cancel");
+           
             alert.style.display = "none";
             resolve(flag =false);
     
@@ -197,8 +203,7 @@ const confirmOpreation = ()=>{
 const addNewTask = (text)=>
 {
 
-    console.log("This is inside add new task and this is the text from button:");
-    console.log(text);
+   
 
     saveTask(text);
     
@@ -212,8 +217,7 @@ const displayTasks = ()=>{
     //creating the new div
     const unloadedTasks = unloadTask();
 
-    console.log("This is inside display tasks, UnloadedTasks:")
-    console.log(unloadedTasks);
+    
     
     if(unloadedTasks.length > 0){
         unloadedTasks.forEach(task =>{
@@ -262,13 +266,8 @@ const displayTasks = ()=>{
 
         })
     }
-    else
-    {
-        noTasksHeader.style.display = "block";
-    }
-       
-
-
+    console.log("This is inside display tasks and these are the tasks :")
+    console.log(unloadedTasks);
     //To make sure the no task note isnt shown
     
 }
@@ -371,17 +370,17 @@ deleteDoneButton.onclick = async ()=>
     {
         let flag =  await confirmOpreation();     
         
-        console.log(flag);
+       
         if(flag)
         {
-            console.log("Deleting");     
+              
             Array.from(taskArr).forEach(task =>{
                 if(task.id[1] === 't' )
                 {
                     task.remove();
                 }
 
-                checkTaskCount();
+                
 
             })
                 
@@ -425,27 +424,21 @@ scrollContainerDiv.addEventListener("click", async (event)=>{
 
     // Event for deleting task
     if(event.target.alt === "deleteIcon"){
-        console.log("Inside delete icon");
+      
 
         const taskToDelete = event.target.closest(".task");
-        console.log("This is the selected task :");
-        console.log(taskToDelete);
-        console.log("This is the selected task id:");
-        console.log(taskToDelete.id);
+       
 
         if(taskToDelete){
             unloadedTasks = unloadTask();
-            console.log("This is the unloadedTasks inside delete:");
-            console.log(unloadedTasks);
+          
 
             if(unloadedTasks.length > 0){
                 let foundTask = unloadedTasks.find(task => taskToDelete.id === task.taskId);
-                console.log("This is the foundTask in delete:");
-                console.log(foundTask);
+               
                 if(foundTask){
                     let foundTaskIndex = unloadedTasks.indexOf(foundTask);
-                    console.log("This is the foundTaskIndex in delete:");
-                    console.log(foundTaskIndex);
+                 
 
                     unloadedTasks.splice(foundTaskIndex, 1);
                     storeLocal(unloadedTasks);
@@ -467,26 +460,20 @@ scrollContainerDiv.addEventListener("click", async (event)=>{
         let flag = await confirmOpreationEdit();
         if(flag[0] === "1"){
 
-            console.log("Inside Edit icon");
+           
             const taskToEdit = event.target.closest(".task");
-            console.log("This is the selected task :");
-            console.log(taskToEdit);
-            console.log("This is the selected task id:");
-            console.log(taskToEdit.id);
+           
 
             if(taskToEdit){
                 unloadedTasks = unloadTask();
-                console.log("This is the unloadedTasks inside edit:");
-                console.log(unloadedTasks);
+              
     
                 if(unloadedTasks.length > 0){
                     let foundTask = unloadedTasks.find(task => taskToEdit.id === task.taskId);
-                    console.log("This is the foundTask in edit:");
-                    console.log(foundTask);
+                    
                     if(foundTask){
                         let foundTaskIndex = unloadedTasks.indexOf(foundTask);
-                        console.log("This is the foundTaskIndex in edit:");
-                        console.log(foundTaskIndex);
+                       
     
                         unloadedTasks[foundTaskIndex].paragraphContent = flag[1];
                         storeLocal(unloadedTasks);
@@ -507,48 +494,39 @@ scrollContainerDiv.addEventListener("click", async (event)=>{
 
     // Event for marking task done
     if(event.target.type ==="checkbox" && (event.target.checked || !event.target.checked) ){
-        console.log("Inside checkbox icon");
+       
 
         const taskToDone = event.target.closest(".task");
         const paragraphToEdit  = taskToDone.querySelector("p");
 
-        console.log("This is the selected task done :");
-        console.log(taskToDone);
-        console.log("This is the selected task id:");
-        console.log(taskToDone.id);
+        
 
 
         if(taskToDone){
             unloadedTasks = unloadTask();
-            console.log("This is the unloadedTasks inside done :");
-            console.log(unloadedTasks);
+         
 
             if(unloadedTasks.length > 0){
                 let foundTask = unloadedTasks.find(task => taskToDone.id === task.taskId);
-                console.log("This is the foundTask in done:");
-                console.log(foundTask);
+           
                 if(foundTask){
    
                     if(taskToDone.id[1] === 'f'){
             
                         taskToDone.id = taskToDone.id[0] + 't' + taskToDone.id[1].slice(2);
-                        console.log("Inside false");
-                        console.log(taskToDone.id);
-                        console.log(paragraphToEdit);
+                       
                     }
                     else if (taskToDone.id[1] === 't') {
                         taskToDone.id = taskToDone.id[0] + 'f' + taskToDone.id[1].slice(2);
-                        console.log("Inside true");
-                        console.log(taskToDone.id);
-                        console.log(paragraphToEdit);
+                   
                     }
 
 
                     let foundTaskIndex = unloadedTasks.indexOf(foundTask);
-                    console.log("This is the foundTaskIndex in done:");
-                    console.log(foundTaskIndex);
+                  
                     unloadedTasks[foundTaskIndex].taskId = taskToDone.id;
-                    storeLocal(unloadedTasks);
+
+                    storeTaskChange(unloadedTasks[foundTaskIndex], foundTaskIndex);
                     paragraphToEdit.classList.toggle("taskParagraphCrossed");
                 }
                     
