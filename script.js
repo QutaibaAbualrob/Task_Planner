@@ -42,6 +42,29 @@ let taskArr = document.getElementsByClassName("task");
 let deleteDoneButton = document.getElementById("deleteDone")
 let deleteAllButton = document.getElementById("deleteAll")
 
+const noTasksChecker = ()=>{
+    console.log("Inside noTasksChecker");
+    let taskCount = document.getElementsByClassName("tasks");
+    if(taskCount.length <= 0){
+        noTasksHeader.style.display = "block";
+    }
+    else{
+        noTasksHeader.style.display = "";
+    }
+
+}
+
+
+const removeTasksHTML = ()=>{
+    let tasks = document.getElementsByClassName("tasks");
+    Array.from(tasks).forEach(task =>{
+        task.remove();
+    })
+
+    noTasksChecker();
+}
+
+
 
 const storeTaskChange = (task, index, flag)=>{
     let temp = unloadTask();
@@ -89,7 +112,7 @@ const storeLocal = (task)=>{
     localStorage.setItem("tasks", JSON.stringify(localTasks));
 
    
-    displayTasks();
+   
     
 }
 
@@ -102,7 +125,7 @@ const saveTask = (text)=>{
     };
 
 
-    
+    displayTaskOnAddNew(task);
     storeLocal(task);
    
 };
@@ -224,7 +247,6 @@ const confirmOpreation = ()=>{
 const addNewTask = (text)=>
 {
 
-   
 
     saveTask(text);
     
@@ -233,6 +255,45 @@ const addNewTask = (text)=>
 
 
 //               NOT FINISHED
+const displayTaskOnAddNew = (task)=>{
+    let newTask = document.createElement("div");
+
+    newTask.classList  = "task";
+    newTask.id = task.taskId;
+
+    //Creating the paragraph to containt the text content
+    let tempParagraph = document.createElement("p");
+    tempParagraph.textContent = task.paragraphContent;
+    
+
+    //Creating Icondiv and content for the icon div
+    let iconDiv = document.createElement("div");
+    iconDiv.classList = "icons";
+
+    let tempCheckbox = document.createElement("input");
+    tempCheckbox.type = "checkbox";
+
+    let tempImg1 = document.createElement("img");
+    tempImg1.src = "./sourceImages/icons/pencil-solid.svg"
+    tempImg1.alt = "pencilIcon";
+
+    let tempImg2 = document.createElement("img")
+    tempImg2.src = "./sourceImages/icons/trash-solid.svg";
+    tempImg2.alt = "deleteIcon";
+
+    //Appending content to the icondiv
+    iconDiv.append(tempCheckbox);
+    iconDiv.append(tempImg1)
+    iconDiv.append(tempImg2)
+
+    //Appending content to the task div
+    newTask.append(tempParagraph);
+    newTask.append(iconDiv);
+    
+
+    //Appending task to task scroll container
+    scrollContainerDiv.append(newTask);
+}
 
 const displayTasks = ()=>{
     //creating the new div
@@ -424,6 +485,7 @@ deleteAllButton.onclick = async ()=>
         if(flag){
             localStorage.removeItem("tasks");
             displayTasks();
+            removeTasksHTML();
         }
            
         
@@ -443,12 +505,12 @@ deleteAllButton.onclick = async ()=>
 
 scrollContainerDiv.addEventListener("click", async (event)=>{
 
-    let taskCount = document.getElementsByClassName("tasks");
+   
 
 
     // Event for deleting task
     if(event.target.alt === "deleteIcon"){
-      
+       
         const taskToDelete = event.target.closest(".task");
         if(taskToDelete){
             unloadedTasks = unloadTask();
@@ -567,6 +629,7 @@ window.onload = ()=>{
     
     allButton.classList.add("hoverEffect");
     displayTasks();
+    noTasksChecker();
 }
 
 
@@ -601,21 +664,3 @@ window.onload = ()=>{
  * 
  * 
  */
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
