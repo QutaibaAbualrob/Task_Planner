@@ -43,17 +43,38 @@ let deleteDoneButton = document.getElementById("deleteDone")
 let deleteAllButton = document.getElementById("deleteAll")
 
 
-const storeTaskChange = (task, index)=>{
+const storeTaskChange = (task, index, flag)=>{
     let temp = unloadTask();
+    console.log("inside storeTaskChange");
+
+    /**
+     *  flag = 0 only content change to local storage
+     *  flag = 1 deleting entire object from the array
+     * 
+     * 
+     */
     
     if(temp.length > 0 && task != null ){
-        temp[index].taskId = task.taskId;
-        temp[index].paragraphContent = task.paragraphContent;
+        switch(flag){
+            case 0:
+                temp[index].taskId = task.taskId;
+                temp[index].paragraphContent = task.paragraphContent;
+            break;
+
+            case 1:
+                temp.splice(index, 1);
+            break;
+
+            
+        }
+        localStorage.setItem('tasks', JSON.stringify(temp));
     }
 
-    localStorage.setItem('tasks', JSON.stringify(temp));
 
 }
+
+
+
 
 
 
@@ -422,13 +443,13 @@ deleteAllButton.onclick = async ()=>
 
 scrollContainerDiv.addEventListener("click", async (event)=>{
 
+    let taskCount = document.getElementsByClassName("tasks");
+
+
     // Event for deleting task
     if(event.target.alt === "deleteIcon"){
       
-
         const taskToDelete = event.target.closest(".task");
-       
-
         if(taskToDelete){
             unloadedTasks = unloadTask();
           
@@ -439,9 +460,7 @@ scrollContainerDiv.addEventListener("click", async (event)=>{
                 if(foundTask){
                     let foundTaskIndex = unloadedTasks.indexOf(foundTask);
                  
-
-                    unloadedTasks.splice(foundTaskIndex, 1);
-                    storeTaskChange(unloadedTasks[foundTaskIndex], foundTaskIndex);
+                    storeTaskChange(unloadedTasks[foundTaskIndex], foundTaskIndex, 1);
                     taskToDelete.remove();
                 }
                     
@@ -478,14 +497,15 @@ scrollContainerDiv.addEventListener("click", async (event)=>{
                         
 
                         unloadedTasks[foundTaskIndex].paragraphContent = flag[1];
-                        storeTaskChange(unloadedTasks[foundTaskIndex], foundTaskIndex);
+                        storeTaskChange(unloadedTasks[foundTaskIndex], foundTaskIndex, 0);
                         
                     }
                         
                 }
                     
             }
-           
+            
+
            
 
         }
@@ -527,7 +547,7 @@ scrollContainerDiv.addEventListener("click", async (event)=>{
                   
                     unloadedTasks[foundTaskIndex].taskId = taskToDone.id;
 
-                    storeTaskChange(unloadedTasks[foundTaskIndex], foundTaskIndex);
+                    storeTaskChange(unloadedTasks[foundTaskIndex], foundTaskIndex, 0);
                     paragraphToEdit.classList.toggle("taskParagraphCrossed");
                 }
                     
