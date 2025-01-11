@@ -441,7 +441,7 @@ scrollContainerDiv.addEventListener("click", async (event)=>{
                  
 
                     unloadedTasks.splice(foundTaskIndex, 1);
-                    storeLocal(unloadedTasks);
+                    storeTaskChange(unloadedTasks[foundTaskIndex], foundTaskIndex);
                     taskToDelete.remove();
                 }
                     
@@ -462,29 +462,30 @@ scrollContainerDiv.addEventListener("click", async (event)=>{
 
            
             const taskToEdit = event.target.closest(".task");
-           
+            const paragraphToEdit  = taskToEdit.querySelector("p");
+            paragraphToEdit.textContent = flag[1];
 
             if(taskToEdit){
                 unloadedTasks = unloadTask();
-              
+                
+                
     
                 if(unloadedTasks.length > 0){
                     let foundTask = unloadedTasks.find(task => taskToEdit.id === task.taskId);
                     
                     if(foundTask){
                         let foundTaskIndex = unloadedTasks.indexOf(foundTask);
-                       
-    
+                        
+
                         unloadedTasks[foundTaskIndex].paragraphContent = flag[1];
-                        storeLocal(unloadedTasks);
+                        storeTaskChange(unloadedTasks[foundTaskIndex], foundTaskIndex);
                         
                     }
                         
                 }
                     
             }
-            taskToEdit.remove();
-
+           
            
 
         }
