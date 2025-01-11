@@ -44,7 +44,7 @@ let deleteAllButton = document.getElementById("deleteAll")
 
 const noTasksChecker = ()=>{
     console.log("Inside noTasksChecker");
-    let taskCount = document.getElementsByClassName("tasks");
+    let taskCount = document.getElementsByClassName("task");
     if(taskCount.length <= 0){
         noTasksHeader.style.display = "block";
     }
@@ -137,6 +137,7 @@ const saveTask = (text)=>{
 
 
     displayTaskOnAddNew(task);
+    noTasksChecker();
     storeLocal(task);
    
 };
@@ -258,7 +259,7 @@ const confirmOpreation = ()=>{
 const addNewTask = (text)=>
 {
 
-
+    
     saveTask(text);
     
 }
@@ -459,7 +460,7 @@ todoButton.onclick = ()=>
 */ 
 deleteDoneButton.onclick = async ()=>
 {
-
+    
     const unloadedTasks = unloadTask();
 
     if(unloadedTasks.length >= 1)
@@ -477,7 +478,7 @@ deleteDoneButton.onclick = async ()=>
                 }
 
                 removeTasksDoneHTML();
-             
+                noTasksChecker();
             })
                 
             
@@ -500,6 +501,7 @@ deleteAllButton.onclick = async ()=>
             localStorage.removeItem("tasks");
             displayTasks();
             removeTasksHTML();
+            noTasksChecker();
         }
            
         
@@ -538,6 +540,7 @@ scrollContainerDiv.addEventListener("click", async (event)=>{
                  
                     storeTaskChange(unloadedTasks[foundTaskIndex], foundTaskIndex, 1);
                     taskToDelete.remove();
+                    noTasksChecker();
                 }
                     
             }
