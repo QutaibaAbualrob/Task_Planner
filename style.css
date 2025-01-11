@@ -1,6 +1,4 @@
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
-
-
 *
 {
     padding: 0px;
@@ -25,7 +23,7 @@ body
     background-color: #0a96ba;   
 }
 
-
+/* scrollbar */
 ::-webkit-scrollbar
 {
     width: 10px;
@@ -41,88 +39,58 @@ body
     background: #0a96ba;
     
   }
-
-
-
+/* end scrollbar */
 .container
 {
     display: 80%;
     height: 100vh; /*  To enable the scroll effect in the task scroll      */
-
     display: flex;
     flex-direction: column;
     justify-content: center;
-
     margin: 0em 0px;
     gap: 3em;
 }
-
 .container h1
 {
     text-align: center;
 }
-
-
-
 .inputContainer
 {
-    
     width: 80%;
-
     margin-left: auto;
     margin-right: auto;
-
     padding: 1em 2em;
-
-
     border: 2px solid lightgray;
     border-radius: 0.2em;
 
 }
-
 .inputContainerContent
 {
     width: 100%;
-
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-
- 
-    
 }
-
 .inputContainerContent div
 {
     width: 100%;
-
     display: flex;
-   
 }
-
 .inputIcon
 {
     display: inline;
     width: 1em;
-
     padding: 0.5em;
     background-color: #0a96ba;
 }
-
 .inputContainerContent input
 {
-    width: 100%;
-    
+    width: 100%;   
     font-size: 1em;
-
-
-
     border: 1px solid #0a96ba;
     outline: none;
-
     padding: 0.5em 0 0.5em 1em;
-
     background-color: white;
 }
 
@@ -136,99 +104,70 @@ body
 {
     width: 100%;
     padding: 0.5em 0px 0.5em 0px;
-
     color: white;
-
     background-color: #0a96ba;
     border: none;
     border-radius: 2px;
 }
-
-
-
-
-
 .listContainer
 {
-
     width: 83.5%;
-    
-
     display: flex;
     flex-direction: column;
     gap: 1.5em;
-
     margin-left: auto;
-    margin-right: auto;
-
-   
-    
+    margin-right: auto;   
     border-radius: 0.2em;
-    
-    
 }
-
 #noTasksHeader
 {
     text-align: center;
     display: none;
 }
-
 .tabsContainer
 {
-    width: 100%;
+    width: 84%;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 1em 2em;
     display: flex;
-    
     gap: 1em;
+    text-align: center;
+    justify-content: center;
 }
-
 .tabButton
 {
-
     width: 100%;
     padding: 0.5em 0px 0.5em 0px;
-
     color: white;
-
     background-color: #0a96ba;
     border: none;
     border-radius: 2px;
 }
-
-
 .scrollContainer
 {
-    width: 100%;
+    width: 84%;
+    padding: 1em 7em;
     max-height: 50%;
-
     display: flex;
     flex-direction: column;
     gap: 0.5em;
-
-
     overflow-y: auto;
-
     
-
+    
 }
-
 .task
-{
-
-   
+{  
     display: flex;
-    justify-content: space-between;
-   
+    justify-content: space-between;  
     padding: 0.5em;
     border: 2px solid lightgray;
 }
-
 .taskParagraphCrossed
 {
     color: red;
     text-decoration: line-through  black;
 }
-
 .icons
 {
     display: flex;
@@ -239,15 +178,12 @@ body
 {
     width: 1em;
     gap: 0.5em;
-
     cursor: pointer;
 }
-
-
-
 .deleteContainer
 {
-    width: 100%;
+    width: 84%;
+    padding: 1em 7em;
     display: flex;
     justify-content: space-between;
     gap: 1em;
@@ -258,10 +194,7 @@ body
     width: 100%;
     padding: 0.5em 0px 0.5em 0px;
     background-color: #e94242;
-    color: white;
-    
-    
-    
+    color: white;   
     border: none;
     border-radius: 2px;
 }
@@ -271,67 +204,37 @@ body
     box-shadow: 0 0 20px rgba(10, 150, 186, 0.5);
    
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 .alert
 {
     height: 100%;
     width: 100%;
-
     display: none;
     justify-content: center;
     align-items: center;
-
     position: fixed;
     top: 0;
     left: 0;
     right: 0;
-
     background-color: rgba(0, 0, 0, 0.4);
     z-index: 6969;
 }
-
 .alertContent
 {
-
     width: 25em;
     height: 15em;
-
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     gap: 2em;
-
-
-
     border-radius: 1em;
     background-color: white;
 }
-
 .alertContent h1
 {
     font-size: 1.5em;
     text-align: center;
 }
-
 .alertContent div
 {
     display: flex;
@@ -345,83 +248,57 @@ body
     border: none;
 
 }
-
-
-
-
 .alertEdit
 {
     height: 100%;
     width: 100%;
-
     display: none;
     justify-content: center;
     align-items: center;
-
     position: fixed;
     top: 0;
     left: 0;
     right: 0;
-
     background-color: rgba(0, 0, 0, 0.4);
     z-index: 8000;
 }
-
 .alertEditContent
 {
-
     width: 25em;
     height: 15em;
-
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     gap: 1.2em;
-
-
-
     border-radius: 1em;
     background-color: white;
 }
-
 .alertEditContent input
 {
     padding: 0.5em 6em 0.5em 1em; 
-
-
     border: 1px solid black;
     outline: none;
-    
 }
-
 .alertEditContent div
 {
     display: flex;
-    gap: 1em;
-    
+    gap: 1em;   
 }
-
-
 .alertEditContent div button
 {  
-    
     padding: 1em 2em;
     border: none;
-
 }
-
 .alertEditConfirmButton
 {
     background-color: #0a96ba;
     color: white;
 }
-
 #inputEditNote
 {
     display: none;
     color: red;
-
     font-size: 1em;
     text-align: center;
 }

@@ -1,417 +1,150 @@
+ 
+/* I knew all the required variables. */
 
+const mainInput = document.getElementById('mainInput');
+const inputButton = document.getElementById('inputButton');
+const inputNote = document.getElementById('inputNote');
+const scrollContainer = document.getElementById('scrollContainer');
+const noTasksHeader = document.getElementById('noTasksHeader');
+const deleteDone = document.getElementById('deleteDone');
+const deleteAll = document.getElementById('deleteAll');
+const allTab = document.getElementById('all');
+const doneTab = document.getElementById('done');
+const todoTab = document.getElementById('todo');
 
+// This is a matrix for saving tasks.
+let tasks = JSON.parse(localStorage.getItem('tasks')) || [];
 
-// Edit content Alert buttons and div
-let alertEdit = document.getElementById("confirmEdit");
-let confirmOpreationButtonEdit = document.getElementById("confirmOpreationButtonEdit");
-let cancelOpreationButtonEdit = document.getElementById("cancelOpreationButtonEdit");
-let inputEdit = document.getElementById("alertEditContentInput");
-let inputEditNote = document.getElementById("inputEditNote");
+// Render tasks to the DOM
+const renderTasks = (filter = 'all') => {
+  scrollContainer.innerHTML = '';
+  const filteredTasks =
+    filter === 'done'
+      ? tasks.filter((task) => task.completed)
+      : filter === 'todo'
+      ? tasks.filter((task) => !task.completed)
+      : tasks;
 
-// Alert buttons and div
-let alert = document.getElementById("confirmOpreation");
-let confirmOpreationButton = document.getElementById("confirmOpreationButton");
-let cancelOpreationButton = document.getElementById("cancelOpreationButton");
+  filteredTasks.forEach((task) => {
+    const taskDiv = document.createElement('div');
+    taskDiv.classList.add('task');
+    taskDiv.setAttribute('id', task.id);
 
-//Add new task button and input
-let mainInput = document.getElementById("mainInput");
-let addNewTaskButton = document.getElementById("inputButton");
-let inputNote = document.getElementById("inputNote");
-
-
-
-//Blue button Click 
-let allButton = document.getElementById("all");
-let doneButton = document.getElementById("done");
-let todoButton = document.getElementById("todo");
-
-
-// Scroll container
-let scrollContainerDiv = document.getElementById("scrollContainer");
-
-// No tasks edge case header
-let noTasksHeader = document.getElementById("noTasksHeader");
-
-
-//Task HTML COLLECTION like an array
-let taskArr = document.getElementsByClassName("task");
-
-
-//Red button Click 
-let deleteDoneButton = document.getElementById("deleteDone")
-let deleteAllButton = document.getElementById("deleteAll")
-
-
-
-
-const checkInpt = (text)=>{
-    const check = /^[0-5]/;
-    
-    if(text.length > 0){
-        if(!check.test(text)){
-            return true;
-        }
-
+    const taskText = document.createElement('p');
+    taskText.textContent = task.text;
+    if (task.completed) {
+      taskText.classList.add('taskParagraphCrossed');
     }
-    return false;
+
+    const iconsDiv = document.createElement('div');
+    iconsDiv.classList.add('icons');
+
+    // Checkbox
+    const checkbox = document.createElement('input');
+    checkbox.type = 'checkbox';
+    checkbox.checked = task.completed;
+    checkbox.addEventListener('change', () => toggleTaskCompletion(task.id));
+
+    // Edit button
+    const editIcon = document.createElement('img');
+    editIcon.src = './sourceImages/icons/pencil-solid.svg';
+    editIcon.alt = 'Edit Task';
+    editIcon.addEventListener('click', () => editTask(task.id));
+
+    // Delete button
+    const deleteIcon = document.createElement('img');
+    deleteIcon.src = './sourceImages/icons/trash-solid.svg';
+    deleteIcon.alt = 'Delete Task';
+    deleteIcon.addEventListener('click', () => deleteTask(task.id));
+
+    iconsDiv.append(checkbox, editIcon, deleteIcon);
+    taskDiv.append(taskText, iconsDiv);
+    scrollContainer.append(taskDiv);
+  });
+
+  noTasksHeader.style.display = tasks.length === 0 ? 'block' : 'none';
 };
 
+// Add new task buttoun
+const addTask = () => {
+  const taskText = mainInput.value.trim();
 
-
-
-
-const checkTaskCount = ()=>{
-    
-    if(taskArr.length <= 0)
-    {
-        noTasksHeader.style.display = "block";
-        
-    }
-}
-
-const confirmOpreationEdit = ()=>{
-    let flag = [];
-    flag[0] = "0";
-    inputEdit.value= "";
-    alertEdit.style.display = "flex";
-
-    return new Promise((resolve, reject) =>{
-
-        confirmOpreationButtonEdit.addEventListener("click", ()=>{
-            if(checkInpt(inputEdit.value)){
-                flag[0] = "1";
-                flag[1] = inputEdit.value;
-                alertEdit.style.display = "none";
-                resolve(flag);
-            }
-            else{
-                inputEditNote.style.display = "block";
-                setTimeout(()=>{
-                    inputEditNote.style.display = "none";
-        
-                }, 3000);
-            }
-                
-        })
-
-        cancelOpreationButtonEdit.addEventListener("click", ()=>{
-            alertEdit.style.display = "none";
-            resolve(flag);
-        })
-
-
-        
-    })
-
-
-
+  if (!validateInput(taskText)) {
+    inputNote.style.display = 'block';
+    return;
+  }
+  const newTask = {
+    id: Date.now(),
+    text: taskText,
+    completed: false,
+  };
+  tasks.push(newTask);
+  mainInput.value = '';
+  inputNote.style.display = 'none';
+  saveTasks();
+  renderTasks();
 };
 
-
-
-const confirmOpreation = ()=>{
-
-    let flag = false;
-    alert.style.display = "flex";
-
-/*
-    Here is the promise that forces the compiler to wait for input from a diffrent slower part
-    of the code.
-
-    NOTE:
-    You should declare the function that will deal with promises as ASYNC function
-*/ 
-
-    return new Promise((resolve, reject)=>{
-       
-        confirmOpreationButton.addEventListener("click", ()=>{
-            console.log("Hello this is inside confirm");
-            alert.style.display = "none";
-            flag = true;
-            resolve(flag);
-        }),
-
-        cancelOpreationButton.addEventListener("click", ()=>{
-            console.log("Hello this is inside cancel");
-            alert.style.display = "none";
-            resolve(flag =false);
-    
-        })
-        
-        /* 
-        setTimeout(()=>{
-            alert.style.display = "none";
-            reject(flag);
-    
-        }, 5000)
-        */
-        
-    });
-
-    
-
-
-
-    
-
+// Validate input != 6 char no add
+const validateInput = (input) => {
+  return input.length > 5 && isNaN(input[0]);
 };
 
-const addNewTask = ()=>
-{
-    let text = mainInput.value;
-    mainInput.value = "";
-
-
-    //creating the new div
-    let newTask = document.createElement("div");
-
-    newTask.className = "task";
-    let taskCount = taskArr.length;
-    newTask.id = taskCount + 'f';
-
-    //Creating the paragraph to containt the text content
-    let tempParagraph = document.createElement("p");
-    tempParagraph.textContent = text;
-
-    //Creating Icondiv and content for the icon div
-    let iconDiv = document.createElement("div");
-    iconDiv.className = "icons";
-
-    let tempCheckbox = document.createElement("input");
-    tempCheckbox.type = "checkbox";
-
-
-    let tempImg1 = document.createElement("img");
-    tempImg1.src = "./sourceImages/icons/pencil-solid.svg"
-    tempImg1.alt = "pencilIcon";
-
-    let tempImg2 = document.createElement("img")
-    tempImg2.src = "./sourceImages/icons/trash-solid.svg";
-    tempImg2.alt = "deleteIcon";
-
-    //Appending content to the icondiv
-    iconDiv.append(tempCheckbox);
-    iconDiv.append(tempImg1)
-    iconDiv.append(tempImg2)
-
-    //Appending content to the task div
-    newTask.append(tempParagraph);
-    newTask.append(iconDiv);
-    
-
-    //Appending task to task scroll container
-    scrollContainerDiv.append(newTask);
-
-
-
-    //To make sure the no task note isnt shown
-    noTasksHeader.style.display = "none";
-}
-
-
-
-addNewTaskButton.onclick = ()=>
-{
-    let text = mainInput.value;
-    
-    if(checkInpt(text))
-    {
-        addNewTask();
-        inputNote.style.display = "";
-    }
-    else
-    {
-        inputNote.style.display = "block";
-        setTimeout(()=>{inputNote.style.display = ""}, 10000)
-    }
-        
-}
-
-
-
-allButton.onclick = ()=>
-{
-    /* Style*/
-    allButton.classList.add("hoverEffect");
-    doneButton.classList.remove("hoverEffect")
-    todoButton.classList.remove("hoverEffect")
-   
-    if(taskArr.length >=1)
-    {
-        for(let task of taskArr)
-        {
-            task.style.display = "";
-        }
-    }
-    
-    
-
+// Toggle task completion
+const toggleTaskCompletion = (taskId) => {
+  tasks = tasks.map((task) =>
+    task.id === taskId ? { ...task, completed: !task.completed } : task
+  );
+  saveTasks();
+  renderTasks();
 };
 
-doneButton.onclick = ()=>
-{
-    /* Style*/
-    doneButton.classList.add("hoverEffect")
-    allButton.classList.remove("hoverEffect")
-    todoButton.classList.remove("hoverEffect")
-
-
-    if(taskArr.length >=1)
-    {
-        for(let task of taskArr)
-        {
-            if(task.id[1] === 't')
-                task.style.display = "";
-            else
-                task.style.display = "none";
-        }
-    }
-
+// Edit task
+const editTask = (taskId) => {
+  const newTaskText = prompt('Enter new task text:').trim();
+  if (!validateInput(newTaskText)) {
+    alert('Invalid input. Task must be longer than 5 characters and not start with a number.');
+    return;
+  }
+  tasks = tasks.map((task) =>
+    task.id === taskId ? { ...task, text: newTaskText } : task
+  );
+  saveTasks();
+  renderTasks();
 };
 
-todoButton.onclick = ()=>
-{
-    /* Style*/
-    todoButton.classList.add("hoverEffect")
-    allButton.classList.remove("hoverEffect")
-    doneButton.classList.remove("hoverEffect")
-
-    if(taskArr.length >= 1)
-    {
-        for(let task of taskArr)
-        {
-            if(task.id[1] === 'f')
-                task.style.display = "";
-            else
-                task.style.display = "none";
-        }
-    }
-        
-
+// button delete task
+const deleteTask = (taskId) => {
+  tasks = tasks.filter((task) => task.id !== taskId);
+  saveTasks();
+  renderTasks();
 };
 
-
-/*
-    I used here Async to wait for the user to input from the buttons
-    as the compiler wont wait for input, either you use timeout callback (Which is hell)
-    or you use promise which is the sane easier choice 😎
-
-    NOTE:
-    You should declare the function that will deal with promises as ASYNC function
-*/ 
-deleteDoneButton.onclick = async ()=>
-{
-    if(taskArr.length >= 1)
-    {
-        let flag =  await confirmOpreation();     
-        
-        console.log(flag);
-        if(flag)
-        {
-            console.log("Deleting");     
-            Array.from(taskArr).forEach(task =>{
-                if(task.id[1] === 't' )
-                {
-                    task.remove();
-                }
-
-                checkTaskCount();
-
-            })
-                
-            
-        }
-    }
-     
-    
+// button delete done tasks
+const deleteDoneTasks = () => {
+  tasks = tasks.filter((task) => !task.completed);
+  saveTasks();
+  renderTasks();
 };
 
-
-deleteAllButton.onclick = async ()=>
-{
-    if(taskArr.length >= 1)
-    {
-        let flag =await confirmOpreation();
-
-        if(flag){
-            console.log("Deleting");
-            Array.from(taskArr).forEach(task =>{
-                task.remove();
-            })
-
-            checkTaskCount();
-        }
-           
-        
-    }
-    
-        
-    
+// button delete all tasks
+const deleteAllTasks = () => {
+  tasks = [];
+  saveTasks();
+  renderTasks();
 };
 
+// Save tasks to (localStorage)
+const saveTasks = () => {
+  localStorage.setItem('tasks', JSON.stringify(tasks));
+};
 
-checkTaskCount();
+// Event listeners definition and programming
+inputButton.addEventListener('click', addTask);
+deleteDone.addEventListener('click', deleteDoneTasks);
+deleteAll.addEventListener('click', deleteAllTasks);
+allTab.addEventListener('click', () => renderTasks('all'));
+doneTab.addEventListener('click', () => renderTasks('done'));
+todoTab.addEventListener('click', () => renderTasks('todo'));
 
-
-
-
-///////                Tasks functions 
-
-scrollContainerDiv.addEventListener("click", async (event)=>{
-
-    // Event for deleting task
-    if(event.target.alt === "deleteIcon"){
-
-        const task = event.target.closest(".task");
-
-        if(task){
-            task.remove();
-        }
-
-        checkTaskCount();
-
-    }
-
-    // Event for editing task
-    if(event.target.alt === "pencilIcon" ){
-        
-
-        let flag = await confirmOpreationEdit();
-        if(flag[0] === "1"){
-            const task = event.target.closest(".task");
-            const paragraphToEdit  = task.querySelector("p");
-
-            paragraphToEdit.textContent = flag[1];
-
-        }
-       
-    }
-
-
-    // Event for marking task done
-    if(event.target.type ==="checkbox" && (event.target.checked || !event.target.checked) ){
-        const task = event.target.closest(".task");
-        const paragraphToEdit  = task.querySelector("p");
-
-        paragraphToEdit.classList.toggle("taskParagraphCrossed");
-        if(task.id[1] === 'f'){
-
-            task.id = task.id[0] + 't' + task.id[1].slice(2);
-            console.log("Inside false");
-            console.log(task.id);
-            console.log(paragraphToEdit);
-        }
-        else if (task.id[1] === 't') {
-            task.id = task.id[0] + 'f' + task.id[1].slice(2);
-            console.log("Inside true");
-            console.log(task.id);
-            console.log(paragraphToEdit);
-        }
-      
-        
-    }
-
-   
-
-
-});
+renderTasks();

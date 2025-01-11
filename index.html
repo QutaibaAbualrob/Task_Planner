@@ -1,125 +1,48 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Task Planner</title>
-
-    <link rel="icon" href="./sourceImages/icons/book-solid_icon.svg" type="image/x-icon">
-    <link rel="stylesheet" href="./style.css">
-    <script src="./script.js"></script>
-
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Task Manager</title>
+  <link rel="stylesheet" href="style.css">
 </head>
-
 <body>
-    
-    <section class="container">
+  <div class="container">
+    <!-- Header Section -->
+    <header>
+      <h1>Task Manager</h1>
+    </header>
 
-        <h1>To do input</h1>
-        <div class="inputContainer">   
-            <div class="inputContainerContent">
-                <div>
-                    <img class="inputIcon" src="./sourceImages/icons/book-solid_icon.svg" alt="book icon">
-                    <input id="mainInput" placeholder="New todo">
-                    
-                </div>
-                <p id="inputNote">Input must be longer than 5 characters and doesnt start with a number</p>
-                <br>
-                <button id="inputButton">Add new Task</button>
-            </div>
+    <!-- Input Section -->
+    <div class="inputContainer">
+      <div class="inputContainerContent">
+        <div>
+          <input type="text" id="mainInput" placeholder="Enter your task...">
         </div>
-
-        <h1>To do list</h1>
-        <div class="listContainer">
-            <div class="tabsContainer">
-                <button class="tabButton" id="all">All</button>
-                <button class="tabButton" id="done">Done</button>
-                <button class="tabButton" id="todo">ToDo</button>
-            </div>
-
-            <div class="scrollContainer" id="scrollContainer">
-                <h3 id="noTasksHeader">NO TASKS!</h3>
-                <div class="task" id="1f">
-                    
-                    <p >Task 1</p>
-
-                    <div class="icons">
-                        <input type="checkbox" value="true">
-                        <img src="./sourceImages/icons/pencil-solid.svg" alt="pencilIcon" >
-                        <img src="./sourceImages/icons/trash-solid.svg" alt="deleteIcon">
-                    </div>
-                </div>
-
-                <div class="task" id="2f">
-                    
-                    <p >Task 2</p>
-
-                    <div class="icons">
-                        <input type="checkbox">
-                        <img src="./sourceImages/icons/pencil-solid.svg" alt="pencilIcon">
-                        <img src="./sourceImages/icons/trash-solid.svg" alt="deleteIcon">
-                    </div>
-                </div>
-                
-                <div class="task" id="3f">
-                    
-                    <p >Task 3</p>
-
-                    <div class="icons">
-                        <input type="checkbox">
-                        <img src="./sourceImages/icons/pencil-solid.svg" alt="pencilIcon">
-                        <img src="./sourceImages/icons/trash-solid.svg" alt="deleteIcon">
-                    </div>
-                </div>
-
-                <div class="task" id="4f">
-                    
-                    <p class="">Task 4 Hello this is test for decoration</p>
-
-                    <div class="icons">
-                        <input type="checkbox">
-                        <img src="./sourceImages/icons/pencil-solid.svg" alt="pencilIcon">
-                        <img src="./sourceImages/icons/trash-solid.svg" alt="deleteIcon" >
-                    </div>
-                </div>
-
-                
-                
-                
-            </div>
-
-            <div class="deleteContainer">
-                <button class="deleteButton" id="deleteDone">Delete Done Tasks</button>
-                <button class="deleteButton"id="deleteAll">Delete All Tasks</button>
-            </div>
-        </div>
-    </section>
-
-    <div class="alert" id="confirmOpreation">
-        <div class="alertContent">
-            <h1>Are you sure you want to do the opreation?<Br><Br>(Cant undo changes)</h1>
-            <div>
-                <button id="confirmOpreationButton">Confirm</button>
-                <button id="cancelOpreationButton" >Cancel</button>
-            </div>
-        </div>
+        <button id="inputButton">Add Task</button>
+        <p id="inputNote">* Task must be at least 6 characters and cannot start with a number.</p>
+      </div>
     </div>
 
-    <div class="alertEdit" id="confirmEdit">
-        <div class="alertEditContent">
-            <h1>Rename Task</h1>
-                <input id="alertEditContentInput" type="text" placeholder="New content">
-                <p id="inputEditNote">Input must be longer than 5 characters and doesnt start with a number</p>
-            <div>
-                <button class="alertEditConfirmButton" id="confirmOpreationButtonEdit">Confirm</button>
-                <button id="cancelOpreationButtonEdit" >Cancel</button>
-            </div>
-        </div>
+    <!-- Task Filters -->
+    <div class="tabsContainer">
+      <button id="all" class="tabButton active">All Tasks</button>
+      <button id="done" class="tabButton">Completed</button>
+      <button id="todo" class="tabButton">Pending</button>
     </div>
 
+    <!-- Task List Section -->
+    <div id="scrollContainer" class="scrollContainer">
+      <h2 id="noTasksHeader">No tasks available. Start by adding a new task!</h2>
+    </div>
 
+    <!-- Action Buttons -->
+    <div class="deleteContainer">
+      <button id="deleteDone" class="deleteButton">Delete Completed Tasks</button>
+      <button id="deleteAll" class="deleteButton">Delete All Tasks</button>
+    </div>
+  </div>
 
-    <script src="./script.js"></script>
+  <script src="script.js"></script>
 </body>
-
 </html>
