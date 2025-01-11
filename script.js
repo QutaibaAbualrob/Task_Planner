@@ -1,4 +1,5 @@
 
+// Local storage area
 
 
 // Edit content Alert buttons and div
@@ -41,33 +42,132 @@ let taskArr = document.getElementsByClassName("task");
 let deleteDoneButton = document.getElementById("deleteDone")
 let deleteAllButton = document.getElementById("deleteAll")
 
-
-
-
-const checkInpt = (text)=>{
-    const check = /^[0-5]/;
-    
-    if(text.length > 0){
-        if(!check.test(text)){
-            return true;
-        }
-
+const noTasksChecker = ()=>{
+    console.log("Inside noTasksChecker");
+    let taskCount = document.getElementsByClassName("task");
+    if(taskCount.length <= 0){
+        noTasksHeader.style.display = "block";
     }
-    return false;
+    else{
+        noTasksHeader.style.display = "";
+    }
+
+}
+
+
+const removeTasksHTML = ()=>{
+    let tasks = document.getElementsByClassName("task");
+    Array.from(tasks).forEach(task =>{
+        task.remove();
+    })
+
+   
+}
+
+const removeTasksDoneHTML = ()=>{
+    let tasks = document.getElementsByClassName("task");
+    Array.from(tasks).forEach(task =>{
+        if(task.id[1] == 't')
+            task.remove();
+    })
+
+   
+}
+
+
+
+
+const storeTaskChange = (task, index, flag)=>{
+    let temp = unloadTask();
+    console.log("inside storeTaskChange");
+
+    /**
+     *  flag = 0 only content change to local storage
+     *  flag = 1 deleting entire object from the array
+     * 
+     * 
+     */
+    
+    if(temp.length > 0 && task != null ){
+        switch(flag){
+            case 0:
+                temp[index].taskId = task.taskId;
+                temp[index].paragraphContent = task.paragraphContent;
+            break;
+
+            case 1:
+                temp.splice(index, 1);
+            break;
+
+            
+        }
+        localStorage.setItem('tasks', JSON.stringify(temp));
+    }
+
+
+}
+
+
+
+
+
+
+const storeLocal = (task)=>{
+
+    let localTasks = JSON.parse(localStorage.getItem("tasks")) || [];
+
+    // Add the new task to the array
+    localTasks.push(task);
+
+    // Save the updated task array back to localStorage
+    localStorage.setItem("tasks", JSON.stringify(localTasks));
+
+   
+   
+    
+}
+
+const saveTask = (text)=>{
+    mainInput.value = "";
+    let task = {
+        taskId : Math.floor((Math.random()*5)) + 'f',
+        paragraphStatus: "",
+        paragraphContent: text
+    };
+
+
+    displayTaskOnAddNew(task);
+    noTasksChecker();
+    storeLocal(task);
+   
+};
+
+const unloadTask = ()=>{
+
+    const tasks = localStorage.getItem("tasks");
+    const unloadedTasks = tasks ? JSON.parse(tasks) : [];  
+    return unloadedTasks;
+}
+
+
+const checkInpt = (textTT)=>{
+    const check = /^(?!\d)/;
+    
+    if( textTT.length > 5 && check.test(textTT)){
+        
+        return true;
+    }
+    else{
+        return false;
+    }
+     
 };
 
 
 
 
 
-const checkTaskCount = ()=>{
-    
-    if(taskArr.length <= 0)
-    {
-        noTasksHeader.style.display = "block";
-        
-    }
-}
+
 
 const confirmOpreationEdit = ()=>{
     let flag = [];
@@ -125,14 +225,14 @@ const confirmOpreation = ()=>{
     return new Promise((resolve, reject)=>{
        
         confirmOpreationButton.addEventListener("click", ()=>{
-            console.log("Hello this is inside confirm");
+           
             alert.style.display = "none";
             flag = true;
             resolve(flag);
         }),
 
         cancelOpreationButton.addEventListener("click", ()=>{
-            console.log("Hello this is inside cancel");
+           
             alert.style.display = "none";
             resolve(flag =false);
     
@@ -156,30 +256,34 @@ const confirmOpreation = ()=>{
 
 };
 
-const addNewTask = ()=>
+const addNewTask = (text)=>
 {
-    let text = mainInput.value;
-    mainInput.value = "";
+
+    
+    saveTask(text);
+    
+}
 
 
-    //creating the new div
+
+//               NOT FINISHED
+const displayTaskOnAddNew = (task)=>{
     let newTask = document.createElement("div");
 
-    newTask.className = "task";
-    let taskCount = taskArr.length;
-    newTask.id = taskCount + 'f';
+    newTask.classList  = "task";
+    newTask.id = task.taskId;
 
     //Creating the paragraph to containt the text content
     let tempParagraph = document.createElement("p");
-    tempParagraph.textContent = text;
+    tempParagraph.textContent = task.paragraphContent;
+    
 
     //Creating Icondiv and content for the icon div
     let iconDiv = document.createElement("div");
-    iconDiv.className = "icons";
+    iconDiv.classList = "icons";
 
     let tempCheckbox = document.createElement("input");
     tempCheckbox.type = "checkbox";
-
 
     let tempImg1 = document.createElement("img");
     tempImg1.src = "./sourceImages/icons/pencil-solid.svg"
@@ -201,13 +305,66 @@ const addNewTask = ()=>
 
     //Appending task to task scroll container
     scrollContainerDiv.append(newTask);
-
-
-
-    //To make sure the no task note isnt shown
-    noTasksHeader.style.display = "none";
 }
 
+const displayTasks = ()=>{
+    //creating the new div
+    const unloadedTasks = unloadTask();
+
+    
+    
+    if(unloadedTasks.length > 0){
+        unloadedTasks.forEach(task =>{
+
+            let newTask = document.createElement("div");
+
+            newTask.classList  = "task";
+            newTask.id = task.taskId;
+
+            //Creating the paragraph to containt the text content
+            let tempParagraph = document.createElement("p");
+            tempParagraph.textContent = task.paragraphContent;
+            if(task.taskId[1] === 't')
+                tempParagraph.classList = "taskParagraphCrossed";
+           
+
+            //Creating Icondiv and content for the icon div
+            let iconDiv = document.createElement("div");
+            iconDiv.classList = "icons";
+
+            let tempCheckbox = document.createElement("input");
+            tempCheckbox.type = "checkbox";
+            if(task.taskId[1] === 't')
+                tempCheckbox.checked = true;
+
+            let tempImg1 = document.createElement("img");
+            tempImg1.src = "./sourceImages/icons/pencil-solid.svg"
+            tempImg1.alt = "pencilIcon";
+
+            let tempImg2 = document.createElement("img")
+            tempImg2.src = "./sourceImages/icons/trash-solid.svg";
+            tempImg2.alt = "deleteIcon";
+
+            //Appending content to the icondiv
+            iconDiv.append(tempCheckbox);
+            iconDiv.append(tempImg1)
+            iconDiv.append(tempImg2)
+
+            //Appending content to the task div
+            newTask.append(tempParagraph);
+            newTask.append(iconDiv);
+            
+
+            //Appending task to task scroll container
+            scrollContainerDiv.append(newTask);
+
+        })
+    }
+    console.log("This is inside display tasks and these are the tasks :")
+    console.log(unloadedTasks);
+    //To make sure the no task note isnt shown
+    
+}
 
 
 addNewTaskButton.onclick = ()=>
@@ -216,7 +373,7 @@ addNewTaskButton.onclick = ()=>
     
     if(checkInpt(text))
     {
-        addNewTask();
+        addNewTask(text);
         inputNote.style.display = "";
     }
     else
@@ -267,6 +424,7 @@ doneButton.onclick = ()=>
         }
     }
 
+
 };
 
 todoButton.onclick = ()=>
@@ -287,6 +445,7 @@ todoButton.onclick = ()=>
         }
     }
         
+        
 
 };
 
@@ -301,22 +460,25 @@ todoButton.onclick = ()=>
 */ 
 deleteDoneButton.onclick = async ()=>
 {
-    if(taskArr.length >= 1)
+    
+    const unloadedTasks = unloadTask();
+
+    if(unloadedTasks.length >= 1)
     {
         let flag =  await confirmOpreation();     
-        
-        console.log(flag);
+
         if(flag)
         {
-            console.log("Deleting");     
-            Array.from(taskArr).forEach(task =>{
-                if(task.id[1] === 't' )
+              
+            unloadedTasks.forEach((task, index)=>{
+                if(task.taskId[1] === 't' )
                 {
-                    task.remove();
+                    storeTaskChange(task, index, 1);
+                   
                 }
 
-                checkTaskCount();
-
+                removeTasksDoneHTML();
+                noTasksChecker();
             })
                 
             
@@ -329,17 +491,17 @@ deleteDoneButton.onclick = async ()=>
 
 deleteAllButton.onclick = async ()=>
 {
-    if(taskArr.length >= 1)
+    const unloadedTasks = unloadTask();
+    
+    if(unloadedTasks.length >= 1)
     {
         let flag =await confirmOpreation();
 
         if(flag){
-            console.log("Deleting");
-            Array.from(taskArr).forEach(task =>{
-                task.remove();
-            })
-
-            checkTaskCount();
+            localStorage.removeItem("tasks");
+            displayTasks();
+            removeTasksHTML();
+            noTasksChecker();
         }
            
         
@@ -350,7 +512,7 @@ deleteAllButton.onclick = async ()=>
 };
 
 
-checkTaskCount();
+
 
 
 
@@ -359,16 +521,33 @@ checkTaskCount();
 
 scrollContainerDiv.addEventListener("click", async (event)=>{
 
+   
+
+
     // Event for deleting task
     if(event.target.alt === "deleteIcon"){
+       
+        const taskToDelete = event.target.closest(".task");
+        if(taskToDelete){
+            unloadedTasks = unloadTask();
+          
 
-        const task = event.target.closest(".task");
-
-        if(task){
-            task.remove();
+            if(unloadedTasks.length > 0){
+                let foundTask = unloadedTasks.find(task => taskToDelete.id === task.taskId);
+               
+                if(foundTask){
+                    let foundTaskIndex = unloadedTasks.indexOf(foundTask);
+                 
+                    storeTaskChange(unloadedTasks[foundTaskIndex], foundTaskIndex, 1);
+                    taskToDelete.remove();
+                    noTasksChecker();
+                }
+                    
+            }
+                
         }
 
-        checkTaskCount();
+        
 
     }
 
@@ -378,10 +557,35 @@ scrollContainerDiv.addEventListener("click", async (event)=>{
 
         let flag = await confirmOpreationEdit();
         if(flag[0] === "1"){
-            const task = event.target.closest(".task");
-            const paragraphToEdit  = task.querySelector("p");
 
+           
+            const taskToEdit = event.target.closest(".task");
+            const paragraphToEdit  = taskToEdit.querySelector("p");
             paragraphToEdit.textContent = flag[1];
+
+            if(taskToEdit){
+                unloadedTasks = unloadTask();
+                
+                
+    
+                if(unloadedTasks.length > 0){
+                    let foundTask = unloadedTasks.find(task => taskToEdit.id === task.taskId);
+                    
+                    if(foundTask){
+                        let foundTaskIndex = unloadedTasks.indexOf(foundTask);
+                        
+
+                        unloadedTasks[foundTaskIndex].paragraphContent = flag[1];
+                        storeTaskChange(unloadedTasks[foundTaskIndex], foundTaskIndex, 0);
+                        
+                    }
+                        
+                }
+                    
+            }
+            
+
+           
 
         }
        
@@ -390,28 +594,90 @@ scrollContainerDiv.addEventListener("click", async (event)=>{
 
     // Event for marking task done
     if(event.target.type ==="checkbox" && (event.target.checked || !event.target.checked) ){
-        const task = event.target.closest(".task");
-        const paragraphToEdit  = task.querySelector("p");
+       
 
-        paragraphToEdit.classList.toggle("taskParagraphCrossed");
-        if(task.id[1] === 'f'){
+        const taskToDone = event.target.closest(".task");
+        const paragraphToEdit  = taskToDone.querySelector("p");
 
-            task.id = task.id[0] + 't' + task.id[1].slice(2);
-            console.log("Inside false");
-            console.log(task.id);
-            console.log(paragraphToEdit);
-        }
-        else if (task.id[1] === 't') {
-            task.id = task.id[0] + 'f' + task.id[1].slice(2);
-            console.log("Inside true");
-            console.log(task.id);
-            console.log(paragraphToEdit);
-        }
-      
         
+
+
+        if(taskToDone){
+            unloadedTasks = unloadTask();
+         
+
+            if(unloadedTasks.length > 0){
+                let foundTask = unloadedTasks.find(task => taskToDone.id === task.taskId);
+           
+                if(foundTask){
+   
+                    if(taskToDone.id[1] === 'f'){
+            
+                        taskToDone.id = taskToDone.id[0] + 't' + taskToDone.id[1].slice(2);
+                       
+                    }
+                    else if (taskToDone.id[1] === 't') {
+                        taskToDone.id = taskToDone.id[0] + 'f' + taskToDone.id[1].slice(2);
+                   
+                    }
+
+
+                    let foundTaskIndex = unloadedTasks.indexOf(foundTask);
+                  
+                    unloadedTasks[foundTaskIndex].taskId = taskToDone.id;
+
+                    storeTaskChange(unloadedTasks[foundTaskIndex], foundTaskIndex, 0);
+                    paragraphToEdit.classList.toggle("taskParagraphCrossed");
+                }
+                    
+            }
+                
+        }
+         
     }
 
    
 
 
 });
+
+
+window.onload = ()=>{
+    
+    allButton.classList.add("hoverEffect");
+    displayTasks();
+    noTasksChecker();
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/**
+ * 
+ *   <div class="task" id="3t">
+                    
+        <p class="taskParagraphCrossed"  >Task 3</p>
+
+        <div class="icons">
+            <input type="checkbox">
+            <img src="./sourceImages/icons/pencil-solid.svg" alt="pencilIcon">
+            <img src="./sourceImages/icons/trash-solid.svg" alt="deleteIcon">
+        </div>
+    </div>
+ * 
+ * 
+ * 
+ * 
+ */

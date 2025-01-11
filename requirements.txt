@@ -1,39 +1,8 @@
 
 
 
+1- Bug with store local method when using it with task icons (Its programmed to store tasks not arrays)
 
+2- Implement a method to display no tasks when no tasks
 
-1- Add function for adding new task. ✔✔✔✔
-
-
-2- Add funciton to delete the task from the bin icon.  ✔✔✔✔
-
-3- Add funciton to edit the task from the pen icon as a form of an ALERT that covers the screen. ✔✔✔✔
-
-4- Add function to mark a task as complete from the checkbox. ✔✔✔✔
-
-5- Add a screen pop up as ALERT like pop ups that asks the user if they want to delete tasks.  ✔✔✔✔
-
-6- Make sure the delete buttons are disabled if theres no tasks for done and all. ✔✔✔✔
-
-7- Add the ability to store user progress in the local storage (cookies).
-
-
-8- Fix no tasks header implementation to be more maintainable (Make a function to be called to check). ✔✔✔✔
-
-9- Check for input data to (Doesnt start with a number, its longer than 5 char) for both input box and edit box, when edit it accepts empty input. ✔✔✔✔
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+3- Fix delete done button
