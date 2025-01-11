@@ -56,13 +56,24 @@ const noTasksChecker = ()=>{
 
 
 const removeTasksHTML = ()=>{
-    let tasks = document.getElementsByClassName("tasks");
+    let tasks = document.getElementsByClassName("task");
     Array.from(tasks).forEach(task =>{
         task.remove();
     })
 
-    noTasksChecker();
+   
 }
+
+const removeTasksDoneHTML = ()=>{
+    let tasks = document.getElementsByClassName("task");
+    Array.from(tasks).forEach(task =>{
+        if(task.id[1] == 't')
+            task.remove();
+    })
+
+   
+}
+
 
 
 
@@ -448,22 +459,25 @@ todoButton.onclick = ()=>
 */ 
 deleteDoneButton.onclick = async ()=>
 {
-    if(taskArr.length >= 1)
+
+    const unloadedTasks = unloadTask();
+
+    if(unloadedTasks.length >= 1)
     {
         let flag =  await confirmOpreation();     
-        
-       
+
         if(flag)
         {
               
-            Array.from(taskArr).forEach(task =>{
-                if(task.id[1] === 't' )
+            unloadedTasks.forEach((task, index)=>{
+                if(task.taskId[1] === 't' )
                 {
-                    task.remove();
+                    storeTaskChange(task, index, 1);
+                   
                 }
 
-                
-
+                removeTasksDoneHTML();
+             
             })
                 
             
