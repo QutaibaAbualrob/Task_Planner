@@ -1,5 +1,5 @@
  
-/* I knew all the required variables. */
+/* I knew all the required read-only variables. */
 
 const mainInput = document.getElementById('mainInput');
 const inputButton = document.getElementById('inputButton');
