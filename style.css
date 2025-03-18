@@ -194,6 +194,7 @@ body
 
 .tabsContainer
 {
+    display: none;
     width: 100%;
     display: flex;
     

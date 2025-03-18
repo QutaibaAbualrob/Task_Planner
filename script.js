@@ -20,6 +20,7 @@ let addNewTaskButton = document.getElementById("inputButton");
 let inputNote = document.getElementById("inputNote");
 
 
+document.getElementById("tabsContainer").style.visibility = "hidden";
 
 //Blue button Click 
 let allButton = document.getElementById("all");
@@ -284,15 +285,19 @@ const displayTaskOnAddNew = (task)=>{
 
     let tempCheckbox = document.createElement("input");
     tempCheckbox.type = "checkbox";
+    tempCheckbox.style.visibility = "hidden";
+
 
     let tempImg1 = document.createElement("img");
     tempImg1.src = "./sourceImages/icons/pencil-solid.svg"
     tempImg1.alt = "pencilIcon";
 
+    tempImg1.style.visibility = "hidden";
+
     let tempImg2 = document.createElement("img")
     tempImg2.src = "./sourceImages/icons/trash-solid.svg";
     tempImg2.alt = "deleteIcon";
-
+    
     //Appending content to the icondiv
     iconDiv.append(tempCheckbox);
     iconDiv.append(tempImg1)
@@ -334,12 +339,15 @@ const displayTasks = ()=>{
 
             let tempCheckbox = document.createElement("input");
             tempCheckbox.type = "checkbox";
+            tempCheckbox.style.visibility = "hidden";
             if(task.taskId[1] === 't')
                 tempCheckbox.checked = true;
 
             let tempImg1 = document.createElement("img");
             tempImg1.src = "./sourceImages/icons/pencil-solid.svg"
             tempImg1.alt = "pencilIcon";
+
+            tempImg1.style.visibility = "hidden";
 
             let tempImg2 = document.createElement("img")
             tempImg2.src = "./sourceImages/icons/trash-solid.svg";
