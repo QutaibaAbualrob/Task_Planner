@@ -20,7 +20,14 @@ let addNewTaskButton = document.getElementById("inputButton");
 let inputNote = document.getElementById("inputNote");
 
 
+
+
 document.getElementById("tabsContainer").style.visibility = "hidden";
+
+
+
+
+
 
 //Blue button Click 
 let allButton = document.getElementById("all");
@@ -41,7 +48,10 @@ let taskArr = document.getElementsByClassName("task");
 
 //Red button Click 
 let deleteDoneButton = document.getElementById("deleteDone")
+deleteDoneButton.style.display = "none";
 let deleteAllButton = document.getElementById("deleteAll")
+
+
 
 const noTasksChecker = ()=>{
     console.log("Inside noTasksChecker");
