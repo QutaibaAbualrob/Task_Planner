@@ -60,6 +60,79 @@ body
     
   }
 
+.emojiContainerTop
+{
+
+    width: 100%;
+    /* height: 100%; */
+
+    display: flex;
+    flex-direction: row;
+    justify-content:center;
+    gap: 70em;
+
+
+    position: fixed;
+    
+    margin-top: 1em;
+
+    top: 0;
+    left: 0;
+    right: 0;
+
+
+    z-index: 9500;
+}
+
+.emojiContainerBottom
+{
+    width: 100%;
+    height: 180%;
+
+    display: flex;
+    flex-direction: row;
+    justify-content:center;
+    gap: 50em;
+
+
+    position: fixed;
+    
+
+
+    top: 0;
+    left: 0;
+    right: 0;
+
+
+    z-index: 9500;
+}
+
+
+.emojiSize
+{
+    width: 9em;
+}
+
+.emoji1
+{
+    transform: rotate(-30deg);
+}
+
+.emoji2
+{
+    transform: rotate(30deg);
+}
+
+.emoji3
+{
+    transform: rotate(60deg);
+}
+
+.emoji4
+{
+    transform: rotate(0deg);
+}
+
 
 
 .container
