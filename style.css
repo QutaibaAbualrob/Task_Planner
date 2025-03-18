@@ -229,10 +229,13 @@ body
     padding: 0.5em 0px 0.5em 0px;
 
     color: white;
-
+   
     background-color: #0a96ba;
     border: none;
     border-radius: 2px;
+
+    font-size: 1em;
+    font-weight: bold;
 }
 
 
